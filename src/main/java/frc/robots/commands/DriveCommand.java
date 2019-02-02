@@ -46,8 +46,10 @@ public class DriveCommand extends Command {
         double speed = Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_X_AXIS);
         double rotation = Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_Y_AXIS);
         boolean quickTurn = false;
-        if(Robot.oi.getController().getAButtonPressed()) {
-            quickTurn = !quickTurn;
+        if(speed > -0.15 && speed < 0.15) {
+            quickTurn = true;
+        } else {
+            quickTurn = false;
         }
         Robot.driveTrain.curveDrive(speed, rotation, quickTurn);
     }
