@@ -46,14 +46,14 @@ public class OI {
 
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("LiftToLowPos", new LiftToLowPos());
-        SmartDashboard.putData("LiftToMidPos", new LiftToMidPos());
-        SmartDashboard.putData("LiftToHighPos", new LiftToHighPos());
+        SmartDashboard.putData("LiftToLowPos", new LiftToLowPos(0.0));
+        SmartDashboard.putData("LiftToMidPos", new LiftToMidPos(0.0));
+        SmartDashboard.putData("LiftToHighPos", new LiftToHighPos(0.0));
         SmartDashboard.putData("ClawOpen", new ClawOpen());
         SmartDashboard.putData("ClawClose", new ClawClose());
         SmartDashboard.putData("PlaceDisk", new PlaceDisk());
-        SmartDashboard.putData("CenterLeft", new CenterLeft());
-        SmartDashboard.putData("CenterRight", new CenterRight());
+        SmartDashboard.putData("CenterLeft", new SeekLeft());
+        SmartDashboard.putData("CenterRight", new SeekRight());
         SmartDashboard.putData("PlaceBallLow", new PlaceBallLow());
         SmartDashboard.putData("PlaceBallMiddle", new PlaceBallMiddle());
         SmartDashboard.putData("PlaceBallHigh", new PlaceBallHigh());
@@ -61,7 +61,7 @@ public class OI {
         SmartDashboard.putData("PlaceDiskMiddle", new PlaceDiskMiddle());
         SmartDashboard.putData("PlaceDiskHigh", new PlaceDiskHigh());
         SmartDashboard.putData("HabLiftFrontUpDown", new HabLiftFrontUpDown());
-        SmartDashboard.putData("LiftToStowedPos", new LiftToStowedPos());
+        SmartDashboard.putData("LiftToStowedPos", new LiftToStowedPos(0.0));
         SmartDashboard.putData("HabLiftBackUpDown", new HabLiftBackUpDown());
         SmartDashboard.putData("HabLiftUpDown", new HabLiftUpDown());
 
