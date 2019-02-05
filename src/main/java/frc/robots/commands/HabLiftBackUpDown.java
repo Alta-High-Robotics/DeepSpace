@@ -10,6 +10,7 @@
 
 
 package frc.robots.commands;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robots.Robot;
 
@@ -38,6 +39,7 @@ public class HabLiftBackUpDown extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.habClimb.setBackSolenoid(Value.kForward);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -54,6 +56,7 @@ public class HabLiftBackUpDown extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.habClimb.setBackSolenoid(Value.kReverse);
     }
 
     // Called when another command which requires one or more of the same
