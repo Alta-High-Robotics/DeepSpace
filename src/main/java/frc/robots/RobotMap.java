@@ -15,7 +15,9 @@ public class RobotMap {
         RIGHT_DRIVE_TALON_CAN_ID = 4,
         RIGHT_DRIVE_VICTOR_CAN_ID = 3,
 
-        LIFT_ARM_TALON_CAN_ID = 6;
+        LIFT_ARM_TALON_CAN_ID = 7,
+        
+        HAB_CLIMB_WHEEL_CAN_ID = 6;
         
 
 

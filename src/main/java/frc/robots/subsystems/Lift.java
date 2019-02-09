@@ -11,6 +11,7 @@
 
 package frc.robots.subsystems;
 
+import frc.robots.RobotMap;
 import frc.robots.commands.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -59,7 +60,7 @@ public class Lift extends PIDSubsystem {
         liftEncoder.setDistancePerPulse(1.0);
         liftEncoder.setPIDSourceType(PIDSourceType.kRate);
         
-        liftTalon = new WPI_TalonSRX(0);
+        liftTalon = new WPI_TalonSRX(RobotMap.LIFT_ARM_TALON_CAN_ID);
         
         
         
