@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -86,6 +87,20 @@ public class HabClimb extends Subsystem {
 
     public void setBackSolenoid(DoubleSolenoid.Value direction) {
         rearHabClimbers.set(direction);
+    }
+
+    public boolean isFrontHabClimbUp() {
+        if(frontHabClimbers.get() == Value.kForward) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isBackHabClimbUp() {
+        if(rearHabClimbers.get() == Value.kForward) {
+            return true;
+        }
+        return false;
     }
 
 

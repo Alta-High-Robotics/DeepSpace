@@ -13,11 +13,13 @@ public class RobotMap {
         LEFT_DRIVE_VICTOR_CAN_ID = 3,
 
         RIGHT_DRIVE_TALON_CAN_ID = 4,
-        RIGHT_DRIVE_VICTOR_CAN_ID = 3,
+        RIGHT_DRIVE_VICTOR_CAN_ID = 2,
 
         LIFT_ARM_TALON_CAN_ID = 7,
         
-        HAB_CLIMB_WHEEL_CAN_ID = 6;
+        HAB_CLIMB_WHEEL_CAN_ID = 6,
+        
+        LIFT_STICK_Y_AXIS = 5;
         
 
 

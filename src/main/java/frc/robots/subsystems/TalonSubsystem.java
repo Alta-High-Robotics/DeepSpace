@@ -19,49 +19,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class TalonSubsystem extends Subsystem {
 
-  public class TalonConfiguration {
-
+  public class TalonPIDConfig {
     private double feedForwardGain = 0;
     private double proportionalGain = 0;
     private double integralGain = 0;
     private double derivativeGain = 0;
-    
 
-    /**
-	 * Which PID slot to pull gains from. Starting 2018, you can choose from
-	 * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
-	 * configuration.
-	 */
-	  private int pidSlot = 0;
-
-	/**
-	 * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
-	 * now we just want the primary one.
-	 */
-  	private int multiplePidLoopId = 0;
-
-	/**
-	 * set to zero to skip waiting for confirmation, set to nonzero to wait and
-	 * report to DS if action fails.
-	 */
-    private int kTimeoutMs = 30;
-
-    public TalonConfiguration() {
-
-    }
-    
-    public TalonConfiguration(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain) {
+    public TalonPIDConfig(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain) {
       this.feedForwardGain = feedForwardGain;
       this.proportionalGain = proportionalGain;
       this.integralGain = integralGain;
       this.derivativeGain = derivativeGain;
-    }
-
-    public TalonConfiguration(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain, int kSlotIdx, int kPIDLoopIdx, int kTimeoutMs) {
-      this(feedForwardGain, proportionalGain, integralGain, derivativeGain);
-      this.pidSlot = kSlotIdx;
-      this.multiplePidLoopId = kPIDLoopIdx;
-      this.kTimeoutMs = kTimeoutMs;
     }
 
     /**
@@ -92,16 +60,53 @@ public class TalonSubsystem extends Subsystem {
       return feedForwardGain;
     }
 
+  }
+
+  public class TalonConfiguration {
+
+    
+    private TalonPIDConfig closedLoopGains;
+
+    /**
+	 * Which PID slot to pull gains from. Starting 2018, you can choose from
+	 * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
+	 * configuration.
+	 */
+	  private int pidSlot = 0;
+
+	/**
+	 * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
+	 * now we just want the primary one.
+	 */
+  	private int multiplePidLoopId = 0;
+
+	/**
+	 * set to zero to skip waiting for confirmation, set to nonzero to wait and
+	 * report to DS if action fails.
+	 */
+    private int kTimeoutMs = 30;
+
+    public TalonConfiguration(TalonPIDConfig closedLoopGains, int kSlotIdx, int kPIDLoopIdx, int kTimeoutMs) {
+      this.closedLoopGains = closedLoopGains;
+      this.pidSlot = kSlotIdx;
+      this.multiplePidLoopId = kPIDLoopIdx;
+      this.kTimeoutMs = kTimeoutMs;
+    }
+
+    public TalonPIDConfig getClosedLoopGains() {
+      return this.closedLoopGains;
+    }
+
     public int getKTimeoutMs() {
-      return kTimeoutMs;
+      return this.kTimeoutMs;
     }
 
     public int getPidSlot() {
-      return pidSlot;
+      return this.pidSlot;
     }
 
     public int getMultiplePidLoopId() {
-      return multiplePidLoopId;
+      return this.multiplePidLoopId;
     }
 
   }
@@ -110,10 +115,10 @@ public class TalonSubsystem extends Subsystem {
     talon.configFactoryDefault();
     talon.configSelectedFeedbackSensor(feedbackDevice, config.getMultiplePidLoopId(), config.getKTimeoutMs());    
     talon.selectProfileSlot(config.getPidSlot(), config.getMultiplePidLoopId());
-		talon.config_kF(config.getPidSlot(), config.getFeedForwardGain(), config.getKTimeoutMs());
-		talon.config_kP(config.getPidSlot(), config.getProportionalGain(), config.getKTimeoutMs());
-		talon.config_kI(config.getPidSlot(), config.getIntegralGain(), config.getKTimeoutMs());
-    talon.config_kD(config.getPidSlot(), config.getDerivativeGain(), config.getKTimeoutMs());
+		talon.config_kF(config.getPidSlot(), config.getClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
+		talon.config_kP(config.getPidSlot(), config.getClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
+		talon.config_kI(config.getPidSlot(), config.getClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
+    talon.config_kD(config.getPidSlot(), config.getClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
   }
 
   public static void configureMotionMagicValues(WPI_TalonSRX talon, TalonConfiguration config, int velocityUnits, int accelerationUnits) {   

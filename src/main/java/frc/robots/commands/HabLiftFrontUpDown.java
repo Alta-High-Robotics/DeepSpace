@@ -39,7 +39,9 @@ public class HabLiftFrontUpDown extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.habClimb.setFrontSolenoid(Value.kForward);
+        if(Robot.habClimb.isFrontHabClimbUp()) {
+            Robot.habClimb.setFrontSolenoid(Value.kReverse);
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -50,18 +52,18 @@ public class HabLiftFrontUpDown extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return !Robot.habClimb.isFrontHabClimbUp() || Robot.habClimb.isFrontHabClimbUp();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        Robot.habClimb.setFrontSolenoid(Value.kReverse);
     }
 }
