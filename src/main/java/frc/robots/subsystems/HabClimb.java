@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -72,6 +73,7 @@ public class HabClimb extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new HabWheelOnLiftCommand());
     }
 
     @Override
@@ -105,6 +107,10 @@ public class HabClimb extends Subsystem {
             return true;
         }
         return false;
+    }
+
+    public void setHabClimbWheelTalonPercentOutput(double output) {
+        habClimberWheelOnLift.set(ControlMode.PercentOutput, output);
     }
 
 

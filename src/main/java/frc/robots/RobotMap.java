@@ -8,6 +8,8 @@ public class RobotMap {
         
         DRIVE_STICK_Y_AXIS = 1,
         DRIVE_STICK_X_AXIS = 0,
+
+        LEFT_TRIGGER_AXIS = 2,
         
         LEFT_DRIVE_TALON_CAN_ID = 5,
         LEFT_DRIVE_VICTOR_CAN_ID = 3,
