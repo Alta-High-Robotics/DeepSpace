@@ -15,8 +15,8 @@ public class HabLiftUpDown extends CommandGroup {
    */
   public HabLiftUpDown() {
 
-    addParallel(new HabLiftBackUpDown());
-    addParallel(new HabLiftFrontUpDown());
+    addParallel(new HabLiftBackUpDown(2.0));
+    addParallel(new HabLiftFrontUpDown(2.0));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

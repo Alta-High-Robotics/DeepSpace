@@ -19,6 +19,7 @@ public class PlaceDiskWithButton extends TimedCommand {
    */
   public PlaceDiskWithButton(double timeout) {
     super(timeout);
+    requires(Robot.claw);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -37,7 +38,7 @@ public class PlaceDiskWithButton extends TimedCommand {
   // Called once after timeout
   @Override
   protected void end() {
-    Robot.claw.setClawActuatorOut();
+    Robot.claw.setClawActuatorIn();
   }
 
   // Called when another command which requires one or more of the same

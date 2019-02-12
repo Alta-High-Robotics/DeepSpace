@@ -89,14 +89,14 @@ public class HabClimb extends Subsystem {
         rearHabClimbers.set(direction);
     }
 
-    public boolean isFrontHabClimbUp() {
+    public boolean isFrontHabClimbDown() {
         if(frontHabClimbers.get() == Value.kForward) {
             return true;
         }
         return false;
     }
 
-    public boolean isBackHabClimbUp() {
+    public boolean isBackHabClimbDown() {
         if(rearHabClimbers.get() == Value.kForward) {
             return true;
         }

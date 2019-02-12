@@ -57,8 +57,7 @@ public class DriveTrain extends Subsystem {
 
         leftDriveTalon = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_TALON_CAN_ID);
         leftDriveTalon.configFactoryDefault();
-        leftDriveTalon.configNominalOutputForward(0.05);
-        leftDriveTalon.setSensorPhase(false);
+        leftDriveTalon.setSensorPhase(true);
         leftDriveTalon.setInverted(false);
         
         leftDriveVictor = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_VICTOR_CAN_ID);
@@ -66,8 +65,7 @@ public class DriveTrain extends Subsystem {
         
         rightDriveTalon = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_TALON_CAN_ID);
         rightDriveTalon.configFactoryDefault();
-        rightDriveTalon.configNominalOutputForward(0.05);
-        rightDriveTalon.setSensorPhase(true);
+        rightDriveTalon.setSensorPhase(false);
         rightDriveTalon.setInverted(false);
 
         rightDriveVictor = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_VICTOR_CAN_ID);

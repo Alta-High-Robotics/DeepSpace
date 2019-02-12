@@ -8,11 +8,12 @@
 package frc.robots.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robots.Robot;
 
-public class EntireHabLiftUpDown extends Command {
-  public EntireHabLiftUpDown() {
+public class EntireHabLiftUpDown extends TimedCommand {
+  public EntireHabLiftUpDown(double timeout) {
+    super(timeout);
     requires(Robot.habClimb);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -21,7 +22,7 @@ public class EntireHabLiftUpDown extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(Robot.habClimb.isFrontHabClimbUp() && Robot.habClimb.isBackHabClimbUp()) {
+    if(Robot.habClimb.isFrontHabClimbDown() && Robot.habClimb.isBackHabClimbDown()) {
       Robot.habClimb.setFrontSolenoid(Value.kReverse);
       Robot.habClimb.setBackSolenoid(Value.kReverse);
     } else {
@@ -34,12 +35,6 @@ public class EntireHabLiftUpDown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return (Robot.habClimb.isFrontHabClimbUp() && Robot.habClimb.isBackHabClimbUp()) || !(Robot.habClimb.isFrontHabClimbUp() && Robot.habClimb.isBackHabClimbUp());
   }
 
   // Called once after isFinished returns true

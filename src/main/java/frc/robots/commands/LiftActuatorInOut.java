@@ -7,12 +7,13 @@
 
 package frc.robots.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robots.Robot;
-import frc.robots.RobotMap;
 
-public class LiftUpDown extends Command {
-  public LiftUpDown() {
+public class LiftActuatorInOut extends TimedCommand {
+  public LiftActuatorInOut(double timeout) {
+    super(timeout);
     requires(Robot.lift);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -21,23 +22,18 @@ public class LiftUpDown extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if(!Robot.lift.isLiftActuatorForward()) {
+      Robot.lift.setLiftActuator(Value.kForward);
+    } else {
+      Robot.lift.setLiftActuator(Value.kReverse);
+    }
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("*****LIFT UP DOWN****");
-    double liftSpeed = 0.6 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
-    Robot.lift.setLiftPercentOutput(liftSpeed);
-    System.out.println("Lift Up Down Command");
   }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
   // Called once after isFinished returns true
   @Override
   protected void end() {
