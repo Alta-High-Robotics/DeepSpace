@@ -61,14 +61,15 @@ public class Lift extends Subsystem {
         // liftTalon.setSelectedSensorPosition(0, 0, 30);
 
         liftArmConfig = new TalonConfiguration(LiftTalonMotionMagicConstants.getLiftmotionmagicgains());
-        TalonSubsystem.configureTalon(liftTalon, liftArmConfig, FeedbackDevice.CTRE_MagEncoder_Absolute);
+        TalonSubsystem.configureTalon(liftTalon, liftArmConfig, FeedbackDevice.CTRE_MagEncoder_Relative);
         TalonSubsystem.configureNominalAndPeakOutputs(liftTalon, liftArmConfig, 0, 0, 1, -1);
-        TalonSubsystem.configureMotionMagicValues(liftTalon, liftArmConfig, 0, 0);
+        TalonSubsystem.configureMotionMagicValues(liftTalon, liftArmConfig, LiftTalonMotionMagicConstants.getMotionmagiccruisevelocity(), LiftTalonMotionMagicConstants.getMotionmagicacceleration());
         TalonSubsystem.zeroSensor(liftTalon, liftArmConfig);    
         
         liftActuator = new DoubleSolenoid(0, 4, 5);
+        liftActuator.set(Value.kForward);
         addChild("LiftActuator",liftActuator);
-        liftActuator.set(Value.kOff);
+        
 
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
@@ -76,6 +77,7 @@ public class Lift extends Subsystem {
         // enable() - Enables the PID controller.
     }
 
+    
     @Override
     public void initDefaultCommand() {
         this.setDefaultCommand(new LiftUpDown());
@@ -120,11 +122,11 @@ public class Lift extends Subsystem {
     }
 
     public void setLiftPos1() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
     }
 
     public void setLiftPos2() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
+        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
     }
 
     public void setLiftPos3() {
@@ -133,5 +135,13 @@ public class Lift extends Subsystem {
 
     public void setLiftStowed() {
         TalonSubsystem.setTalonMotionMagic(liftTalon, LiftTalonMotionMagicConstants.getEncoderTargetValues()[3]);
+    }
+
+    public Value getLiftActuatorDirection() {
+        return liftActuator.get();
+    }
+
+    public int getLiftEncoderPosition() {
+        return liftTalon.getSelectedSensorPosition();
     }
 }

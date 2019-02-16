@@ -27,12 +27,13 @@ public class LiftActuatorInOut extends TimedCommand {
     } else {
       Robot.lift.setLiftActuator(Value.kReverse);
     }
-    
+    System.out.println("Lift actuator working");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Lift actuator direction: " + Robot.lift.getLiftActuatorDirection()); 
   }
   // Called once after isFinished returns true
   @Override

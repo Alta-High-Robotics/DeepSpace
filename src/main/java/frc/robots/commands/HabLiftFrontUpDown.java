@@ -41,7 +41,7 @@ public class HabLiftFrontUpDown extends TimedCommand {
     @Override
     protected void initialize() {
         if(!Robot.habClimb.isFrontHabClimbDown()) {
-            Robot.habClimb.setFrontSolenoid(Value.kForward);
+            Robot.habClimb.setFrontSolenoid(Value.kReverse);
         }
     }
 

@@ -9,24 +9,42 @@ public class LiftTalonMotionMagicConstants {
     private static final double forward = 1.0;
     private static final double backward = -1.0;
 
-    private final double maxSensorVelocity  = 0;
+    private static final double maxSensorVelocity  = 2162;
+
+    private static final double feedForwardGain = (1.0 * 1023) / maxSensorVelocity;
 
     private static final int kSensorUnitsPerRotation = 4096;
 
     
-    private static final double[] encoderTargetValues = {0, 0, 0, 0};
+    private static final double[] encoderTargetValues = {2460, 6905, 12244, 0};
 
-    
+    private static final int motionMagicCruiseVelocity = 1081;
 
-    private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(0.0, 0.0, 0.0, 0.0);
+    private static final int motionMagicAcceleration = 1081;
+
+    private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(feedForwardGain, 0.0642, 0.0, 0.0);
 
     public static double[] getEncoderTargetValues() {
         return encoderTargetValues;
     }
 
     /**
-	 * @return the liftmotionmagicgains
-	 */
+     * @return the motionmagicacceleration
+     */
+    public static int getMotionmagicacceleration() {
+        return motionMagicAcceleration;
+    }
+
+    /**
+     * @return the motionmagiccruisevelocity
+     */
+    public static int getMotionmagiccruisevelocity() {
+        return motionMagicCruiseVelocity;
+    }
+
+    /**
+     * @return the liftmotionmagicgains
+     */
 	public static TalonPIDConfig getLiftmotionmagicgains() {
 		return liftMotionMagicGains;
 	}

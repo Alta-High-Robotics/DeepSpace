@@ -23,10 +23,10 @@ public class EntireHabLiftUpDown extends TimedCommand {
   @Override
   protected void initialize() {
     if(Robot.habClimb.isFrontHabClimbDown() && Robot.habClimb.isBackHabClimbDown()) {
-      Robot.habClimb.setFrontSolenoid(Value.kReverse);
-      Robot.habClimb.setBackSolenoid(Value.kReverse);
-    } else {
       Robot.habClimb.setFrontSolenoid(Value.kForward);
+      Robot.habClimb.setBackSolenoid(Value.kReverse);
+    } else if(!Robot.habClimb.isFrontHabClimbDown() && !Robot.habClimb.isBackHabClimbDown()){
+      Robot.habClimb.setFrontSolenoid(Value.kReverse);
       Robot.habClimb.setBackSolenoid(Value.kForward);
     } 
 
@@ -35,6 +35,8 @@ public class EntireHabLiftUpDown extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Front climbers direction: " + Robot.habClimb.getFrontClimbersDirection());
+    System.out.println("Rear climbers Direction: " + Robot.habClimb.getRearClimbersDirection());
   }
 
   // Called once after isFinished returns true

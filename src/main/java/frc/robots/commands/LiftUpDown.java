@@ -26,7 +26,7 @@ public class LiftUpDown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double liftSpeed = 0.6 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
+    double liftSpeed = 1.0 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
     Robot.lift.setLiftPercentOutput(liftSpeed);
     Robot.lift.printLiftTalonOutputs();
     Robot.lift.putLiftTalonOutputsSmartDash();

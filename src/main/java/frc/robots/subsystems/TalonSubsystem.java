@@ -131,8 +131,9 @@ public class TalonSubsystem extends Subsystem {
   }
 
   public static void configureMotionMagicValues(WPI_TalonSRX talon, TalonConfiguration config, int velocityUnits, int accelerationUnits) {   
-    talon.configMotionAcceleration(accelerationUnits, config.getKTimeoutMs());
     talon.configMotionCruiseVelocity(velocityUnits, config.getKTimeoutMs());
+    talon.configMotionAcceleration(accelerationUnits, config.getKTimeoutMs());
+    
   }
 
   public static void configureNominalAndPeakOutputs(WPI_TalonSRX talon, TalonConfiguration config, double nomForward, double nomReverse, double peakForward, double peakReverse) {
@@ -163,6 +164,8 @@ public class TalonSubsystem extends Subsystem {
     SmartDashboard.putNumber("pulseWidthPosition", pulseWidthWithoutOverflows);
     SmartDashboard.putNumber("selSenPos", selSenPos);
 }
+
+
 
   @Override
   public void initDefaultCommand() {
