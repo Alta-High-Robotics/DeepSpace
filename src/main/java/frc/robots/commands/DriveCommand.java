@@ -43,7 +43,7 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double speed = -1.0 * Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_Y_AXIS);
+        double speed = -0.75 * Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_Y_AXIS);
         double rotation = Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_X_AXIS);
         // boolean quickTurn = false;
         // if(speed > -0.05 && speed < 0.05) {

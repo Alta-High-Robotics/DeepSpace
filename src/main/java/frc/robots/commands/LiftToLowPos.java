@@ -14,6 +14,7 @@ package frc.robots.commands;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robots.Robot;
+import frc.robots.RobotMap;
 import frc.robots.talonpidconstants.LiftTalonMotionMagicConstants;
 
 /**
@@ -46,8 +47,16 @@ public class LiftToLowPos extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.lift.setLiftPos2();
+        
+        // Robot.lift.setLiftPos2();
         System.out.println(LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
+        double liftStickAxis = 1.0 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
+        // double adjustedStickOutput = (liftStickAxis + 1.0) / 2.0;
+        if ((liftStickAxis) < -0.05) { liftStickAxis = 0;}
+        System.out.println("Lift Stick Axis value: " + liftStickAxis);
+        double targetPos =  liftStickAxis * LiftTalonMotionMagicConstants.getkSensorUnitsPerRotation() * 3.0;
+        System.out.println("Target Pos Value: " + targetPos);
+        Robot.lift.setLiftPosWithJoystick(-targetPos);
         Robot.lift.printLiftTalonOutputs();
     }
 

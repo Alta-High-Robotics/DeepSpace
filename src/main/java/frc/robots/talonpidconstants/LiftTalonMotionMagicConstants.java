@@ -22,7 +22,7 @@ public class LiftTalonMotionMagicConstants {
 
     private static final int motionMagicAcceleration = 1081;
 
-    private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(feedForwardGain, 0.0642, 0.0, 0.0);
+    private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(feedForwardGain, 0.06, 0.0000001, 0.0);
 
     public static double[] getEncoderTargetValues() {
         return encoderTargetValues;
