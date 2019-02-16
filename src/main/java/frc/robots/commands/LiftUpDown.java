@@ -26,10 +26,10 @@ public class LiftUpDown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("*****LIFT UP DOWN****");
     double liftSpeed = 0.6 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
     Robot.lift.setLiftPercentOutput(liftSpeed);
-    System.out.println("Lift Up Down Command");
+    Robot.lift.printLiftTalonOutputs();
+    Robot.lift.putTalonOutputsSmartDash();
   }
 
   // Make this return true when this Command no longer needs to run execute()

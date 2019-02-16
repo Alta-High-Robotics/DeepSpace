@@ -8,18 +8,21 @@
 package frc.robots.subsystems;
 
 import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
  */
 public class TalonSubsystem extends Subsystem {
 
-  public class TalonPIDConfig {
+  public static class TalonPIDConfig {
     private double feedForwardGain = 0;
     private double proportionalGain = 0;
     private double integralGain = 0;
@@ -62,7 +65,7 @@ public class TalonSubsystem extends Subsystem {
 
   }
 
-  public class TalonConfiguration {
+  public static class TalonConfiguration {
 
     
     private TalonPIDConfig closedLoopGains;
@@ -85,6 +88,10 @@ public class TalonSubsystem extends Subsystem {
 	 * report to DS if action fails.
 	 */
     private int kTimeoutMs = 30;
+
+    public TalonConfiguration(TalonPIDConfig closedLoopGains) {
+      this.closedLoopGains = closedLoopGains;
+    }
 
     public TalonConfiguration(TalonPIDConfig closedLoopGains, int kSlotIdx, int kPIDLoopIdx, int kTimeoutMs) {
       this.closedLoopGains = closedLoopGains;
@@ -119,11 +126,24 @@ public class TalonSubsystem extends Subsystem {
 		talon.config_kP(config.getPidSlot(), config.getClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
 		talon.config_kI(config.getPidSlot(), config.getClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
     talon.config_kD(config.getPidSlot(), config.getClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
+    talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, config.getKTimeoutMs());
+    talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, config.getKTimeoutMs());
   }
 
   public static void configureMotionMagicValues(WPI_TalonSRX talon, TalonConfiguration config, int velocityUnits, int accelerationUnits) {   
     talon.configMotionAcceleration(accelerationUnits, config.getKTimeoutMs());
     talon.configMotionCruiseVelocity(velocityUnits, config.getKTimeoutMs());
+  }
+
+  public static void configureNominalAndPeakOutputs(WPI_TalonSRX talon, TalonConfiguration config, double nomForward, double nomReverse, double peakForward, double peakReverse) {
+    talon.configNominalOutputForward(nomForward, config.getKTimeoutMs());
+		talon.configNominalOutputReverse(nomReverse, config.getKTimeoutMs());
+		talon.configPeakOutputForward(peakForward, config.getKTimeoutMs());
+    talon.configPeakOutputReverse(peakReverse, config.getKTimeoutMs());
+  }
+
+  public static void zeroSensor(WPI_TalonSRX talon, TalonConfiguration config) {
+    talon.setSelectedSensorPosition(0, config.getMultiplePidLoopId(), config.getKTimeoutMs());
   }
   
   public static void printTalonOutputs(WPI_TalonSRX talon) {
@@ -131,6 +151,18 @@ public class TalonSubsystem extends Subsystem {
         System.out.println("Sensor Pos:" + talon.getSelectedSensorPosition());
         System.out.println("Out %" + talon.getMotorOutputPercent());
   }
+
+  public static void setTalonMotionMagic(WPI_TalonSRX talon, double setpoint) {
+    talon.set(ControlMode.MotionMagic, setpoint);
+  }
+
+  public static void putTalonOutputsSmartDash(WPI_TalonSRX talon) {
+    int selSenPos = talon.getSelectedSensorPosition(0);
+    int pulseWidthWithoutOverflows = talon.getSensorCollection().getPulseWidthPosition() & 0xFFF;
+
+    SmartDashboard.putNumber("pulseWidthPosition", pulseWidthWithoutOverflows);
+    SmartDashboard.putNumber("selSenPos", selSenPos);
+}
 
   @Override
   public void initDefaultCommand() {

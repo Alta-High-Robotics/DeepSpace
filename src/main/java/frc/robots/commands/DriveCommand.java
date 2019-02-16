@@ -45,13 +45,15 @@ public class DriveCommand extends Command {
     protected void execute() {
         double speed = -1.0 * Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_Y_AXIS);
         double rotation = Robot.oi.getController().getRawAxis(RobotMap.DRIVE_STICK_X_AXIS);
-        boolean quickTurn = false;
-        if(speed > -0.1 && speed < 0.1) {
-            quickTurn = true;
-        } else {
-            quickTurn = false;
-        }
-        Robot.driveTrain.curveDrive(0.5*speed, rotation, quickTurn);
+        // boolean quickTurn = false;
+        // if(speed > -0.05 && speed < 0.05) {
+        //     quickTurn = true;
+        // } else {
+        //     quickTurn = false;
+        // }
+        // Robot.driveTrain.curveDrive(0.5*speed, rotation, quickTurn);
+        Robot.driveTrain.setArcadeDrive(speed, 0.8* rotation);
+        System.out.println("Driving");
     }
 
     // Make this return true when this Command no longer needs to run execute()
