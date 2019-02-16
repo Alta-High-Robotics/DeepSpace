@@ -61,8 +61,12 @@ public class DriveTrain extends Subsystem {
         leftDriveTalon.set(ControlMode.PercentOutput, 0);
         leftDriveTalon.configFactoryDefault();
         leftDriveTalon.setNeutralMode(NeutralMode.Brake);
+        leftDriveTalon.configVoltageCompSaturation(10.0);
+        leftDriveTalon.enableVoltageCompensation(true);
+        leftDriveTalon.configOpenloopRamp(0.6);
         leftDriveTalon.setSensorPhase(true);
         leftDriveTalon.setInverted(false);
+
         
         leftDriveVictor = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_VICTOR_CAN_ID);
         leftDriveVictor.follow(leftDriveTalon);
@@ -71,6 +75,9 @@ public class DriveTrain extends Subsystem {
         rightDriveTalon.set(ControlMode.PercentOutput, 0);
         rightDriveTalon.configFactoryDefault();
         rightDriveTalon.setNeutralMode(NeutralMode.Brake);
+        rightDriveTalon.configVoltageCompSaturation(10.0);
+        rightDriveTalon.enableVoltageCompensation(true);
+        rightDriveTalon.configOpenloopRamp(0.6);
         rightDriveTalon.setSensorPhase(false);
         rightDriveTalon.setInverted(false);
 
