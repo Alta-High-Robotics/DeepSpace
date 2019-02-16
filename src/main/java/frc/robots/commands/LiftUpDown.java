@@ -29,7 +29,7 @@ public class LiftUpDown extends Command {
     double liftSpeed = 0.6 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
     Robot.lift.setLiftPercentOutput(liftSpeed);
     Robot.lift.printLiftTalonOutputs();
-    Robot.lift.putTalonOutputsSmartDash();
+    Robot.lift.putLiftTalonOutputsSmartDash();
   }
 
   // Make this return true when this Command no longer needs to run execute()
