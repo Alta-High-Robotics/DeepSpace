@@ -58,6 +58,8 @@ public class Lift extends Subsystem {
         liftTalon.setInverted(false);
         // liftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 30);
         liftTalon.setNeutralMode(NeutralMode.Brake);
+        liftTalon.configReverseSoftLimitThreshold(1, 30);
+        liftTalon.configReverseSoftLimitEnable(true);
         // liftTalon.setSelectedSensorPosition(0, 0, 30);
 
         liftArmConfig = new TalonConfiguration(LiftTalonMotionMagicConstants.getLiftmotionmagicgains());
