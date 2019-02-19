@@ -11,10 +11,14 @@
 
 package frc.robots.commands;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robots.Robot;
 import frc.robots.RobotMap;
+import frc.robots.subsystems.TalonSubsystem;
 import frc.robots.talonpidconstants.LiftTalonMotionMagicConstants;
 
 /**
@@ -52,12 +56,24 @@ public class LiftToLowPos extends Command {
         System.out.println(LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
         double liftStickAxis = 1.0 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
         // double adjustedStickOutput = (liftStickAxis + 1.0) / 2.0;
-        if ((liftStickAxis) < -0.05) { liftStickAxis = 0;}
+        if ((liftStickAxis) > -0.05) { liftStickAxis = 0;}
         System.out.println("Lift Stick Axis value: " + liftStickAxis);
-        double targetPos =  liftStickAxis * LiftTalonMotionMagicConstants.getkSensorUnitsPerRotation() * 3.0;
-        System.out.println("Target Pos Value: " + targetPos);
-        Robot.lift.setLiftPosWithJoystick(-targetPos);
-        Robot.lift.printLiftTalonOutputs();
+        SmartDashboard.putNumber("Lift Stick Axis value", liftStickAxis);
+        SmartDashboard.putNumber("Arm nominal output", Robot.lift.getNominalOutput());
+        Robot.lift.putLiftTalonOutputsSmartDash();
+        if(liftStickAxis < -0.05) {
+            Robot.lift.resetNominalOutput();
+            double targetPos =  liftStickAxis * LiftTalonMotionMagicConstants.getkSensorUnitsPerRotation() * 3.0;
+            System.out.println("Target Pos Value: " + targetPos);
+            SmartDashboard.putNumber("Target Pos Value", targetPos);
+            Robot.lift.setLiftPosWithJoystick(targetPos);
+            Robot.lift.printLiftTalonOutputs();
+        } 
+        else {
+            Robot.lift.configLiftNominalPercentOutput();
+        }
+       
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -160,9 +160,10 @@ public class TalonSubsystem extends Subsystem {
   public static void putTalonOutputsSmartDash(WPI_TalonSRX talon) {
     int selSenPos = talon.getSelectedSensorPosition(0);
     int pulseWidthWithoutOverflows = talon.getSensorCollection().getPulseWidthPosition() & 0xFFF;
-
+    double talonOutput = talon.getMotorOutputPercent();
     SmartDashboard.putNumber("pulseWidthPosition", pulseWidthWithoutOverflows);
     SmartDashboard.putNumber("selSenPos", selSenPos);
+    SmartDashboard.putNumber("Talon output value: ", talonOutput);
 }
 
 
