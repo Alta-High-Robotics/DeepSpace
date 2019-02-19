@@ -46,11 +46,16 @@ public class OI {
 
         Button liftToMidPosition = new XboxButton(controllerTwo, XboxButton.Button.X);
         Button lifToHighPositon = new XboxButton(controllerTwo, XboxButton.Button.Y);
+        Button liftToStowedPosition = new XboxButton(controllerTwo, XboxButton.Button.B);
 
 
         entireHabLiftUpAndDown.whenPressed(new EntireHabLiftUpDown(1.0));
         frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
         backHabLiftUpAndDown.whenPressed(new HabLiftBackUpDown(1.0));
+
+        liftToMidPosition.whenPressed(new LiftToMidPos());
+        lifToHighPositon.whenPressed(new LiftToHighPos());
+        liftToStowedPosition.whenPressed(new LiftToStowedPos());
 
         placeDiskButton.whenPressed(new PlaceDisk(1.0));
 
