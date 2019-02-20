@@ -25,9 +25,15 @@ public class EntireHabLiftUpDown extends TimedCommand {
     if(Robot.habClimb.isFrontHabClimbDown() && Robot.habClimb.isBackHabClimbDown()) {
       Robot.habClimb.setFrontSolenoid(Value.kForward);
       Robot.habClimb.setBackSolenoid(Value.kReverse);
+
+      // Robot.habClimb.setFrontActuatorsDown();
+      // Robot.habClimb.setBackActuatorsDown();
     } else if(!Robot.habClimb.isFrontHabClimbDown() && !Robot.habClimb.isBackHabClimbDown()){
       Robot.habClimb.setFrontSolenoid(Value.kReverse);
       Robot.habClimb.setBackSolenoid(Value.kForward);
+
+      // Robot.habClimb.setFrontActuatorsUp();
+      // Robot.habClimb.setBackActuatorsUp();
     } 
 
   }

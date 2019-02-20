@@ -95,6 +95,22 @@ public class HabClimb extends Subsystem {
         rearHabClimbers.set(direction);
     }
 
+    public void setFrontActuatorsUp() {
+        setFrontSolenoid(Value.kReverse);
+    }
+
+    public void setFrontActuatorsDown() {
+        setFrontSolenoid(Value.kForward);
+    }
+
+    public void setBackActuatorsUp() {
+        setBackSolenoid(Value.kForward);
+    }
+
+    public void setBackActuatorsDown() {
+        setBackSolenoid(Value.kReverse);
+    }
+
     public boolean isFrontHabClimbDown() {
         if(frontHabClimbers.get() == Value.kReverse) {
             return true;

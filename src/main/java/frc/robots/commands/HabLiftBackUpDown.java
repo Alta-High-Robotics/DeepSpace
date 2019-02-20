@@ -42,6 +42,10 @@ public class HabLiftBackUpDown extends TimedCommand {
     protected void initialize() {
         if(!Robot.habClimb.isBackHabClimbDown()) {
             Robot.habClimb.setBackSolenoid(Value.kForward);
+            // Robot.habClimb.setBackActuatorsUp();
+        } else {
+            Robot.habClimb.setBackSolenoid(Value.kReverse);
+            // Robot.habClimb.setBackActuatorsDown();
         }
     }
 

@@ -42,6 +42,10 @@ public class HabLiftFrontUpDown extends TimedCommand {
     protected void initialize() {
         if(!Robot.habClimb.isFrontHabClimbDown()) {
             Robot.habClimb.setFrontSolenoid(Value.kReverse);
+            // Robot.habClimb.setFrontActuatorsUp();
+        } else {
+            Robot.habClimb.setFrontSolenoid(Value.kForward);
+            // Robot.habClimb.setFrontActuatorsDown();
         }
     }
 

@@ -57,7 +57,7 @@ public class OI {
         lifToHighPositon.whenPressed(new LiftToHighPos());
         liftToStowedPosition.whenPressed(new LiftToStowedPos());
 
-        placeDiskButton.whenPressed(new PlaceDisk(1.0));
+        placeDiskButton.whenPressed(new PlaceDisk(3.0));
 
         liftActuatorButton.whenPressed(new LiftActuatorInOut(1.0));
 
