@@ -46,7 +46,7 @@ public class SeekLeft extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.cameraSubsystem.seekLeft(clockwise);
+        Robot.cameraSubsystem.seek(clockwise);
     }
 
     // Make this return true when this Command no longer needs to run execute()

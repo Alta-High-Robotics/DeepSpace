@@ -137,7 +137,7 @@ public class CameraSubsystem extends Subsystem {
         return speedPorportion;
     }
 
-    public void seekLeft(double clockwise) {
+    public void seek(double clockwise) {
         var limelightData = Robot.cameraSubsystem.getData(); //Java 10 'var' automatically creates new LLData object.
         if (limelightData.targetExists == 0.0) { //no target
             double meanSpeed = (lowestTurnSpeed + turnSpeed) / 2.0; //exactly half of lowest and highest speed
