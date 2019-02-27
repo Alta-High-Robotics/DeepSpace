@@ -66,7 +66,9 @@ public class Lift extends Subsystem {
         liftTalon.configReverseSoftLimitEnable(true);
         liftTalon.configOpenloopRamp(0.75, 30);
         liftTalon.configClosedloopRamp(2.0, 30);
+
         
+  
         // liftTalon.setSelectedSensorPosition(0, 0, 30);
 
         liftArmConfig = new TalonConfiguration(LiftTalonMotionMagicConstants.getLiftmotionmagicgains());
