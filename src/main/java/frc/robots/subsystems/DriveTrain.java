@@ -63,7 +63,7 @@ public class DriveTrain extends Subsystem {
         leftDriveTalon.setNeutralMode(NeutralMode.Brake);
         leftDriveTalon.configVoltageCompSaturation(10.0);
         leftDriveTalon.enableVoltageCompensation(true);
-        leftDriveTalon.configOpenloopRamp(0.6);
+        leftDriveTalon.configOpenloopRamp(1.0);
         leftDriveTalon.setSensorPhase(true);
         leftDriveTalon.setInverted(false);
 
@@ -77,7 +77,7 @@ public class DriveTrain extends Subsystem {
         rightDriveTalon.setNeutralMode(NeutralMode.Brake);
         rightDriveTalon.configVoltageCompSaturation(10.0);
         rightDriveTalon.enableVoltageCompensation(true);
-        rightDriveTalon.configOpenloopRamp(0.6);
+        rightDriveTalon.configOpenloopRamp(1.0);
         rightDriveTalon.setSensorPhase(false);
         rightDriveTalon.setInverted(false);
 
