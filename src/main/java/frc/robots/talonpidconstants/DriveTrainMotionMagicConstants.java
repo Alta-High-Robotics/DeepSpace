@@ -21,6 +21,11 @@ public class DriveTrainMotionMagicConstants {
 
     private static final double maxSensorVelocity  = 0;
 
+    private static final double feedForwardGain = (1.0 * 1023) / maxSensorVelocity;
+
+    public static final int PID_PRIMARY = 0;
+    public static final int PID_AUX = 1;
+
     private final int kSensorUnitsPerRotation = 4096;
 
     private final double encoderTargetValue = kSensorUnitsPerRotation * rotationsNeeded;

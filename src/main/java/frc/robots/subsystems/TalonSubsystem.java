@@ -11,6 +11,8 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -75,7 +77,9 @@ public class TalonSubsystem extends Subsystem {
 	 * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
 	 * configuration.
 	 */
-	  private int pidSlot = 0;
+    private int pidSlot = 0;
+    
+    private int auxPidSlot = 1;
 
 	/**
 	 * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
@@ -122,12 +126,34 @@ public class TalonSubsystem extends Subsystem {
     talon.configFactoryDefault();
     talon.configSelectedFeedbackSensor(feedbackDevice, config.getMultiplePidLoopId(), config.getKTimeoutMs());    
     talon.selectProfileSlot(config.getPidSlot(), config.getMultiplePidLoopId());
-		talon.config_kF(config.getPidSlot(), config.getClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
+		configureTalonGains(talon, config);
+    talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, config.getKTimeoutMs());
+    talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, config.getKTimeoutMs());
+  }
+
+  private static void configureTalonGains(WPI_TalonSRX talon, TalonConfiguration config) {
+    talon.config_kF(config.getPidSlot(), config.getClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
 		talon.config_kP(config.getPidSlot(), config.getClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
 		talon.config_kI(config.getPidSlot(), config.getClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
     talon.config_kD(config.getPidSlot(), config.getClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
-    talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, config.getKTimeoutMs());
-    talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, config.getKTimeoutMs());
+  }
+
+  public static void configureDriveTrainTalons(WPI_TalonSRX leftTalon, WPI_TalonSRX rightTalon, TalonConfiguration config, FeedbackDevice primaryDevice) {
+    leftTalon.configFactoryDefault();
+    rightTalon.configFactoryDefault();
+    leftTalon.configSelectedFeedbackSensor(primaryDevice, config.getMultiplePidLoopId(), config.getKTimeoutMs());
+    rightTalon.configRemoteFeedbackFilter(leftTalon.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, config.getKTimeoutMs());
+    rightTalon.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, config.getKTimeoutMs());				// Feedback Device of Remote Talon
+    rightTalon.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, config.getKTimeoutMs()); 
+    rightTalon.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor0, config.getKTimeoutMs());
+    rightTalon.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, config.getKTimeoutMs());
+    rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, config.getMultiplePidLoopId(), config.getKTimeoutMs());
+    rightTalon.configSelectedFeedbackCoefficient(	0.5, 						// Coefficient
+														config.getMultiplePidLoopId(),		// PID Slot of Source 
+                            config.getKTimeoutMs());  // Configuration Timeout
+    rightTalon.configSelectedFeedbackSensor(	FeedbackDevice.SensorDifference, 
+													1, 
+                          config.getKTimeoutMs());
   }
 
   public static void configureMotionMagicValues(WPI_TalonSRX talon, TalonConfiguration config, int velocityUnits, int accelerationUnits) {   
@@ -141,6 +167,7 @@ public class TalonSubsystem extends Subsystem {
 		talon.configNominalOutputReverse(nomReverse, config.getKTimeoutMs());
 		talon.configPeakOutputForward(peakForward, config.getKTimeoutMs());
     talon.configPeakOutputReverse(peakReverse, config.getKTimeoutMs());
+    
   }
 
   public static void zeroSensor(WPI_TalonSRX talon, TalonConfiguration config) {
