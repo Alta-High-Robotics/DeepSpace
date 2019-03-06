@@ -30,6 +30,8 @@ public class TalonSubsystem extends Subsystem {
     private double proportionalGain = 0;
     private double integralGain = 0;
     private double derivativeGain = 0;
+    private double integralZone = 0;
+    private double peakOutputClosedLoop = 0;
 
     public TalonPIDConfig(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain) {
       this.feedForwardGain = feedForwardGain;
