@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -71,6 +72,7 @@ public class TalonSubsystem extends Subsystem {
 
     
     private TalonPIDConfig closedLoopGains;
+    private TalonPIDConfig auxClosedLoopGains;
 
     /**
 	 * Which PID slot to pull gains from. Starting 2018, you can choose from
@@ -97,15 +99,30 @@ public class TalonSubsystem extends Subsystem {
       this.closedLoopGains = closedLoopGains;
     }
 
+    public TalonConfiguration(TalonPIDConfig closedLoopGains, TalonPIDConfig auxClosedLoopGains) {
+      this(closedLoopGains);
+      this.auxClosedLoopGains = auxClosedLoopGains;
+    }
+
     public TalonConfiguration(TalonPIDConfig closedLoopGains, int kSlotIdx, int kPIDLoopIdx, int kTimeoutMs) {
-      this.closedLoopGains = closedLoopGains;
+      this(closedLoopGains);
       this.pidSlot = kSlotIdx;
       this.multiplePidLoopId = kPIDLoopIdx;
       this.kTimeoutMs = kTimeoutMs;
     }
 
+    public TalonConfiguration(TalonPIDConfig closedLoopGains, TalonPIDConfig auxClosedLoopGains, int kSlotIdx, int kPIDLoopIdx, int auxPIDid, int kTimeoutMs) {
+      this(closedLoopGains, kSlotIdx, kPIDLoopIdx, kTimeoutMs);
+      this.auxClosedLoopGains = auxClosedLoopGains;
+      this.auxPidSlot = auxPIDid;
+    }
+
     public TalonPIDConfig getClosedLoopGains() {
       return this.closedLoopGains;
+    }
+
+    public TalonPIDConfig getAuxClosedLoopGains() {
+      return this.auxClosedLoopGains;
     }
 
     public int getKTimeoutMs() {
@@ -114,6 +131,10 @@ public class TalonSubsystem extends Subsystem {
 
     public int getPidSlot() {
       return this.pidSlot;
+    }
+
+    public int getAuxPidSlot() {
+      return this.auxPidSlot;
     }
 
     public int getMultiplePidLoopId() {
@@ -138,6 +159,19 @@ public class TalonSubsystem extends Subsystem {
     talon.config_kD(config.getPidSlot(), config.getClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
   }
 
+  private static void configurePrimaryTalonGains(WPI_TalonSRX talon, TalonConfiguration config) {
+    configureTalonGains(talon, config);
+    // talon.config_IntegralZone(config.getPidSlot(), izone, timeoutMs)
+  }
+
+
+  private static void configureAuxTalonGains(WPI_TalonSRX talon, TalonConfiguration config) {
+    talon.config_kF(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
+		talon.config_kP(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
+		talon.config_kI(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
+    talon.config_kD(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
+  }
+
   public static void configureDriveTrainTalons(WPI_TalonSRX leftTalon, WPI_TalonSRX rightTalon, TalonConfiguration config, FeedbackDevice primaryDevice) {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
@@ -148,12 +182,20 @@ public class TalonSubsystem extends Subsystem {
     rightTalon.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor0, config.getKTimeoutMs());
     rightTalon.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, config.getKTimeoutMs());
     rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, config.getMultiplePidLoopId(), config.getKTimeoutMs());
-    rightTalon.configSelectedFeedbackCoefficient(	0.5, 						// Coefficient
-														config.getMultiplePidLoopId(),		// PID Slot of Source 
-                            config.getKTimeoutMs());  // Configuration Timeout
-    rightTalon.configSelectedFeedbackSensor(	FeedbackDevice.SensorDifference, 
-													1, 
-                          config.getKTimeoutMs());
+    rightTalon.configSelectedFeedbackCoefficient(	0.5, config.getMultiplePidLoopId(), config.getKTimeoutMs());
+    rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, config.getKTimeoutMs());
+    rightTalon.configSelectedFeedbackCoefficient(1, 1, config.getKTimeoutMs());
+    rightTalon.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, config.getKTimeoutMs());
+		rightTalon.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, config.getKTimeoutMs());
+		rightTalon.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, config.getKTimeoutMs());
+    rightTalon.setStatusFramePeriod(StatusFrame.Status_10_Targets, 20, config.getKTimeoutMs());
+    leftTalon.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 5, config.getKTimeoutMs());
+
+    rightTalon.configNeutralDeadband(0.001, config.getKTimeoutMs());
+    leftTalon.configNeutralDeadband(0.001, config.getKTimeoutMs());
+
+    configurePrimaryTalonGains(rightTalon, config);
+    configureAuxTalonGains(rightTalon, config);
   }
 
   public static void configureMotionMagicValues(WPI_TalonSRX talon, TalonConfiguration config, int velocityUnits, int accelerationUnits) {   
