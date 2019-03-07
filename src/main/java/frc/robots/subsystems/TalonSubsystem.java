@@ -30,14 +30,20 @@ public class TalonSubsystem extends Subsystem {
     private double proportionalGain = 0;
     private double integralGain = 0;
     private double derivativeGain = 0;
-    private double integralZone = 0;
-    private double peakOutputClosedLoop = 0;
+    private int integralZone;
+    private double peakOutputClosedLoop;
 
     public TalonPIDConfig(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain) {
       this.feedForwardGain = feedForwardGain;
       this.proportionalGain = proportionalGain;
       this.integralGain = integralGain;
       this.derivativeGain = derivativeGain;
+    }
+
+    public TalonPIDConfig(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain, int integralZone, double peakOutputClosedLoop)  {
+      this(feedForwardGain, proportionalGain, integralGain, derivativeGain);
+      this.integralZone = integralZone;
+      this.peakOutputClosedLoop = peakOutputClosedLoop;
     }
 
     /**
@@ -66,6 +72,14 @@ public class TalonSubsystem extends Subsystem {
      */
     public double getFeedForwardGain() {
       return feedForwardGain;
+    }
+
+    public int getIntegralZone() {
+      return integralZone;
+    }
+
+    public double getPeakOutputClosedLoop() {
+      return peakOutputClosedLoop;
     }
 
   }
@@ -174,6 +188,19 @@ public class TalonSubsystem extends Subsystem {
     talon.config_kD(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
   }
 
+  private static void configPrimaryIZoneAndClosedLoopSetting(WPI_TalonSRX talon, TalonConfiguration config) {
+    talon.config_IntegralZone(config.getPidSlot(), config.getClosedLoopGains().getIntegralZone(), config.getKTimeoutMs());
+    talon.configClosedLoopPeakOutput(config.getPidSlot(), config.getClosedLoopGains().getPeakOutputClosedLoop(), config.getKTimeoutMs());
+    talon.configAllowableClosedloopError(config.getPidSlot(), 0, config.getKTimeoutMs());
+  }
+
+  private static void configAuxIZoneAndClosedLoopSetting(WPI_TalonSRX talon, TalonConfiguration config) {
+    talon.config_IntegralZone(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getIntegralZone(), config.getKTimeoutMs());
+    talon.configClosedLoopPeakOutput(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getPeakOutputClosedLoop(), config.getKTimeoutMs());
+    talon.configAllowableClosedloopError(config.getAuxPidSlot(), 0, config.getKTimeoutMs());
+  }
+
+
   public static void configureDriveTrainTalons(WPI_TalonSRX leftTalon, WPI_TalonSRX rightTalon, TalonConfiguration config, FeedbackDevice primaryDevice) {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
@@ -197,7 +224,15 @@ public class TalonSubsystem extends Subsystem {
     leftTalon.configNeutralDeadband(0.001, config.getKTimeoutMs());
 
     configurePrimaryTalonGains(rightTalon, config);
+    configPrimaryIZoneAndClosedLoopSetting(rightTalon, config);
     configureAuxTalonGains(rightTalon, config);
+    configAuxIZoneAndClosedLoopSetting(rightTalon, config);
+
+    int closedLoopTimeMs = 1;
+    rightTalon.configClosedLoopPeriod(0, closedLoopTimeMs, config.getKTimeoutMs());
+    rightTalon.configClosedLoopPeriod(1, closedLoopTimeMs, config.getKTimeoutMs());
+    rightTalon.configAuxPIDPolarity(false, config.getKTimeoutMs());
+
   }
 
   public static void configureMotionMagicValues(WPI_TalonSRX talon, TalonConfiguration config, int velocityUnits, int accelerationUnits) {   

@@ -26,6 +26,9 @@ public class DriveTrainMotionMagicConstants {
     public static final int PID_PRIMARY = 0;
     public static final int PID_AUX = 1;
 
+    public static final int CRUISE_VELOCITY = 0;
+    public static final int ACCELERATION = 0;
+
     private final int kSensorUnitsPerRotation = 4096;
 
     private final double encoderTargetValue = kSensorUnitsPerRotation * rotationsNeeded;
