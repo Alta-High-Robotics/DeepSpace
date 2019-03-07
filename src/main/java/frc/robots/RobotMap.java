@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class RobotMap {
     public static final int 
-        XBOX_PORT = 0,
-        XBOX_PORT_2 = 1,
+        XBOX_PORT_0 = 0,
+        XBOX_PORT_1 = 1,
 
         DRIVE_STICK_Y_AXIS = 1,
         DRIVE_STICK_X_AXIS = 0,
@@ -22,7 +22,10 @@ public class RobotMap {
         
         HAB_CLIMB_WHEEL_CAN_ID = 6,
         
-        LIFT_STICK_Y_AXIS = 5;
+        LIFT_STICK_Y_AXIS = 5,
+        
+        FRONT_MOTOR_CLIMB = 0,
+        BACK_MOTOR_CLIMB = 1;
         
 
 
