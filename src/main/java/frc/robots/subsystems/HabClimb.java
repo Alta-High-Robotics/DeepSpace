@@ -146,12 +146,20 @@ public class HabClimb extends Subsystem {
         return rearHabClimbers.get();
     }
 
-    public void climbFront() {
+    public void climbUpFront() {
         frontClimb.set(1.0);
     }
 
-    public void climbBack() {
+    public void climbUpBack() {
         backClimb.set(1.0);
+    }
+
+    public void climbDownFront() {
+        frontClimb.set(-1.0);
+    }
+
+    public void climbDownBack() {
+        backClimb.set(-1.0);
     }
 
 

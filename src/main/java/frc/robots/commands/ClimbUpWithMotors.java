@@ -9,9 +9,11 @@ package frc.robots.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robots.Robot;
-
-public class ClimbWithMotors extends Command {
-  public ClimbWithMotors() {
+/**
+ * Drives the climbing motors down, lifting the robot.
+ */
+public class ClimbUpWithMotors extends Command {
+  public ClimbUpWithMotors() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.habClimb);
@@ -25,8 +27,8 @@ public class ClimbWithMotors extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.habClimb.climbFront();
-    Robot.habClimb.climbBack();
+    Robot.habClimb.climbUpFront();
+    Robot.habClimb.climbUpBack();
 
   }
 
