@@ -25,7 +25,9 @@ public class RobotMap {
         LIFT_STICK_Y_AXIS = 5,
         
         FRONT_MOTOR_CLIMB = 0,
-        BACK_MOTOR_CLIMB = 1;
+        BACK_MOTOR_CLIMB = 1,
+        
+        MOTOR_CLIMB_AXIS = 1;
         
 
 
