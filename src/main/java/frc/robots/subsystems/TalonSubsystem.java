@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -83,7 +84,7 @@ public class TalonSubsystem extends Subsystem {
     }
 
   }
-
+  
   public static class TalonConfiguration {
 
     
@@ -222,7 +223,6 @@ public class TalonSubsystem extends Subsystem {
 
     rightTalon.configNeutralDeadband(0.001, config.getKTimeoutMs());
     leftTalon.configNeutralDeadband(0.001, config.getKTimeoutMs());
-
     configurePrimaryTalonGains(rightTalon, config);
     configPrimaryIZoneAndClosedLoopSetting(rightTalon, config);
     configureAuxTalonGains(rightTalon, config);
