@@ -154,6 +154,11 @@ public class DriveTrain extends Subsystem {
         leftDriveTalon.set(ControlMode.PercentOutput, +joyForward, DemandType.ArbitraryFeedForward, joyTurn);
 	 	rightDriveTalon.set(ControlMode.PercentOutput, -joyForward, DemandType.ArbitraryFeedForward, joyTurn);
     }
+
+    public void setProfileSlotsDriveTrain() {
+        rightDriveTalon.selectProfileSlot(0, 0);
+        rightDriveTalon.selectProfileSlot(1, 1);
+    }
     
 
     

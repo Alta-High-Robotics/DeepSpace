@@ -22,7 +22,9 @@ public class RobotMap {
         
         HAB_CLIMB_WHEEL_CAN_ID = 6,
         
-        LIFT_STICK_Y_AXIS = 5;
+        LIFT_STICK_Y_AXIS = 5,
+        
+        MOTION_MAGIC_DRIVETRAIN_AXIS = 5;
         
 
 

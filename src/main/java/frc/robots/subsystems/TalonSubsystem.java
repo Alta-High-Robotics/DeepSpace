@@ -96,15 +96,19 @@ public class TalonSubsystem extends Subsystem {
 	 * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
 	 * configuration.
 	 */
-    private int pidSlot = 0;
+    private int primaryPidIndex = 0;
     
-    private int auxPidSlot = 1;
+    private int auxPidIndex = 1;
+
+    private int remoteOrdinal_0 = 0;
+    private int remoteOrdinal_1 = 1;
 
 	/**
 	 * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
 	 * now we just want the primary one.
 	 */
-  	private int multiplePidLoopId = 0;
+    private int pidSlot_0 = 0;
+    private int pidSlot_1 = 1;
 
 	/**
 	 * set to zero to skip waiting for confirmation, set to nonzero to wait and
@@ -123,15 +127,15 @@ public class TalonSubsystem extends Subsystem {
 
     public TalonConfiguration(TalonPIDConfig closedLoopGains, int kSlotIdx, int kPIDLoopIdx, int kTimeoutMs) {
       this(closedLoopGains);
-      this.pidSlot = kSlotIdx;
-      this.multiplePidLoopId = kPIDLoopIdx;
+      this.primaryPidIndex = kSlotIdx;
+      this.pidSlot_0 = kPIDLoopIdx;
       this.kTimeoutMs = kTimeoutMs;
     }
 
     public TalonConfiguration(TalonPIDConfig closedLoopGains, TalonPIDConfig auxClosedLoopGains, int kSlotIdx, int kPIDLoopIdx, int auxPIDid, int kTimeoutMs) {
       this(closedLoopGains, kSlotIdx, kPIDLoopIdx, kTimeoutMs);
       this.auxClosedLoopGains = auxClosedLoopGains;
-      this.auxPidSlot = auxPIDid;
+      this.auxPidIndex = auxPIDid;
     }
 
     public TalonPIDConfig getClosedLoopGains() {
@@ -146,75 +150,91 @@ public class TalonSubsystem extends Subsystem {
       return this.kTimeoutMs;
     }
 
-    public int getPidSlot() {
-      return this.pidSlot;
+    public int getPrimaryPidIndex() {
+      return this.primaryPidIndex;
     }
 
-    public int getAuxPidSlot() {
-      return this.auxPidSlot;
+    public int getauxPidIndex() {
+      return this.auxPidIndex;
     }
 
-    public int getMultiplePidLoopId() {
-      return this.multiplePidLoopId;
+    public int getPidSlot_0() {
+      return this.pidSlot_0;
+    }
+
+    public int getPidSlot_1() {
+      return this.pidSlot_1;
+    }
+
+    public int getRemoteOrdinal_0() {
+      return this.remoteOrdinal_0;
+    }
+
+    public int getRemoteOrdinal_1() {
+      return this.remoteOrdinal_1;
     }
 
   }
 
   public static void configureTalon(WPI_TalonSRX talon, TalonConfiguration config, FeedbackDevice feedbackDevice) {
     talon.configFactoryDefault();
-    talon.configSelectedFeedbackSensor(feedbackDevice, config.getMultiplePidLoopId(), config.getKTimeoutMs());    
-    talon.selectProfileSlot(config.getPidSlot(), config.getMultiplePidLoopId());
+    talon.configSelectedFeedbackSensor(feedbackDevice, config.getPidSlot_0(), config.getKTimeoutMs());    
+    talon.selectProfileSlot(config.getPrimaryPidIndex(), config.getPidSlot_0());
 		configureTalonGains(talon, config);
     talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, config.getKTimeoutMs());
     talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, config.getKTimeoutMs());
   }
 
   private static void configureTalonGains(WPI_TalonSRX talon, TalonConfiguration config) {
-    talon.config_kF(config.getPidSlot(), config.getClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
-		talon.config_kP(config.getPidSlot(), config.getClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
-		talon.config_kI(config.getPidSlot(), config.getClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
-    talon.config_kD(config.getPidSlot(), config.getClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
+    talon.config_kF(config.getPrimaryPidIndex(), config.getClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
+		talon.config_kP(config.getPrimaryPidIndex(), config.getClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
+		talon.config_kI(config.getPrimaryPidIndex(), config.getClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
+    talon.config_kD(config.getPrimaryPidIndex(), config.getClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
   }
 
   private static void configurePrimaryTalonGains(WPI_TalonSRX talon, TalonConfiguration config) {
     configureTalonGains(talon, config);
-    // talon.config_IntegralZone(config.getPidSlot(), izone, timeoutMs)
+    // talon.config_IntegralZone(config.getPrimaryPidIndex(), izone, timeoutMs)
   }
 
 
   private static void configureAuxTalonGains(WPI_TalonSRX talon, TalonConfiguration config) {
-    talon.config_kF(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
-		talon.config_kP(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
-		talon.config_kI(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
-    talon.config_kD(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
+    talon.config_kF(config.getauxPidIndex(), config.getAuxClosedLoopGains().getFeedForwardGain(), config.getKTimeoutMs());
+		talon.config_kP(config.getauxPidIndex(), config.getAuxClosedLoopGains().getProportionalGain(), config.getKTimeoutMs());
+		talon.config_kI(config.getauxPidIndex(), config.getAuxClosedLoopGains().getIntegralGain(), config.getKTimeoutMs());
+    talon.config_kD(config.getauxPidIndex(), config.getAuxClosedLoopGains().getDerivativeGain(), config.getKTimeoutMs());
   }
 
   private static void configPrimaryIZoneAndClosedLoopSetting(WPI_TalonSRX talon, TalonConfiguration config) {
-    talon.config_IntegralZone(config.getPidSlot(), config.getClosedLoopGains().getIntegralZone(), config.getKTimeoutMs());
-    talon.configClosedLoopPeakOutput(config.getPidSlot(), config.getClosedLoopGains().getPeakOutputClosedLoop(), config.getKTimeoutMs());
-    talon.configAllowableClosedloopError(config.getPidSlot(), 0, config.getKTimeoutMs());
+    talon.config_IntegralZone(config.getPrimaryPidIndex(), config.getClosedLoopGains().getIntegralZone(), config.getKTimeoutMs());
+    talon.configClosedLoopPeakOutput(config.getPrimaryPidIndex(), config.getClosedLoopGains().getPeakOutputClosedLoop(), config.getKTimeoutMs());
+    talon.configAllowableClosedloopError(config.getPrimaryPidIndex(), 0, config.getKTimeoutMs());
   }
 
   private static void configAuxIZoneAndClosedLoopSetting(WPI_TalonSRX talon, TalonConfiguration config) {
-    talon.config_IntegralZone(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getIntegralZone(), config.getKTimeoutMs());
-    talon.configClosedLoopPeakOutput(config.getAuxPidSlot(), config.getAuxClosedLoopGains().getPeakOutputClosedLoop(), config.getKTimeoutMs());
-    talon.configAllowableClosedloopError(config.getAuxPidSlot(), 0, config.getKTimeoutMs());
+    talon.config_IntegralZone(config.getauxPidIndex(), config.getAuxClosedLoopGains().getIntegralZone(), config.getKTimeoutMs());
+    talon.configClosedLoopPeakOutput(config.getauxPidIndex(), config.getAuxClosedLoopGains().getPeakOutputClosedLoop(), config.getKTimeoutMs());
+    talon.configAllowableClosedloopError(config.getauxPidIndex(), 0, config.getKTimeoutMs());
   }
 
 
   public static void configureDriveTrainTalons(WPI_TalonSRX leftTalon, WPI_TalonSRX rightTalon, TalonConfiguration config, FeedbackDevice primaryDevice) {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
-    leftTalon.configSelectedFeedbackSensor(primaryDevice, config.getMultiplePidLoopId(), config.getKTimeoutMs());
-    rightTalon.configRemoteFeedbackFilter(leftTalon.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, config.getKTimeoutMs());
+    leftTalon.configSelectedFeedbackSensor(primaryDevice, config.getPrimaryPidIndex(), config.getKTimeoutMs());
+    rightTalon.configRemoteFeedbackFilter(leftTalon.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, config.getRemoteOrdinal_0(), config.getKTimeoutMs());
     rightTalon.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, config.getKTimeoutMs());				// Feedback Device of Remote Talon
     rightTalon.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.CTRE_MagEncoder_Relative, config.getKTimeoutMs()); 
     rightTalon.configSensorTerm(SensorTerm.Diff1, FeedbackDevice.RemoteSensor0, config.getKTimeoutMs());
     rightTalon.configSensorTerm(SensorTerm.Diff0, FeedbackDevice.CTRE_MagEncoder_Relative, config.getKTimeoutMs());
-    rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, config.getMultiplePidLoopId(), config.getKTimeoutMs());
-    rightTalon.configSelectedFeedbackCoefficient(	0.5, config.getMultiplePidLoopId(), config.getKTimeoutMs());
-    rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, 1, config.getKTimeoutMs());
-    rightTalon.configSelectedFeedbackCoefficient(1, 1, config.getKTimeoutMs());
+    
+    rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorSum, config.getPrimaryPidIndex(), config.getKTimeoutMs());
+    
+    rightTalon.configSelectedFeedbackCoefficient(	0.5, config.getPrimaryPidIndex(), config.getKTimeoutMs());
+    
+    rightTalon.configSelectedFeedbackSensor(FeedbackDevice.SensorDifference, config.getauxPidIndex(), config.getKTimeoutMs());
+    
+    rightTalon.configSelectedFeedbackCoefficient(1, config.getauxPidIndex(), config.getKTimeoutMs());
     rightTalon.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, config.getKTimeoutMs());
 		rightTalon.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, config.getKTimeoutMs());
 		rightTalon.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 20, config.getKTimeoutMs());
@@ -250,7 +270,7 @@ public class TalonSubsystem extends Subsystem {
   }
 
   public static void zeroSensor(WPI_TalonSRX talon, TalonConfiguration config) {
-    talon.setSelectedSensorPosition(0, config.getMultiplePidLoopId(), config.getKTimeoutMs());
+    talon.setSelectedSensorPosition(0, config.getPidSlot_0(), config.getKTimeoutMs());
   }
   
   public static void printTalonOutputs(WPI_TalonSRX talon) {
@@ -270,6 +290,10 @@ public class TalonSubsystem extends Subsystem {
     SmartDashboard.putNumber("pulseWidthPosition", pulseWidthWithoutOverflows);
     SmartDashboard.putNumber("selSenPos", selSenPos);
     SmartDashboard.putNumber("Talon output value: ", talonOutput);
+}
+
+public static void setProfileSlots(WPI_TalonSRX talon, int pidSlot, int primaryOrAuxIndex) {
+  talon.selectProfileSlot(pidSlot, primaryOrAuxIndex);
 }
 
 
