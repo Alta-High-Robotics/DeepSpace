@@ -58,12 +58,13 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
 
         leftDriveTalon = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_TALON_CAN_ID);
-        leftDriveTalon.set(ControlMode.PercentOutput, 0);
+        // leftDriveTalon.set(ControlMode.PercentOutput, 0);
         leftDriveTalon.configFactoryDefault();
         leftDriveTalon.setNeutralMode(NeutralMode.Brake);
         leftDriveTalon.configVoltageCompSaturation(10.0);
         leftDriveTalon.enableVoltageCompensation(true);
-        leftDriveTalon.configOpenloopRamp(1.0);
+
+        leftDriveTalon.configOpenloopRamp(0.5);
         leftDriveTalon.setSensorPhase(true);
         leftDriveTalon.setInverted(false);
 
@@ -72,12 +73,12 @@ public class DriveTrain extends Subsystem {
         leftDriveVictor.follow(leftDriveTalon);
         
         rightDriveTalon = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_TALON_CAN_ID);
-        rightDriveTalon.set(ControlMode.PercentOutput, 0);
+        // rightDriveTalon.set(ControlMode.PercentOutput, 0);
         rightDriveTalon.configFactoryDefault();
         rightDriveTalon.setNeutralMode(NeutralMode.Brake);
         rightDriveTalon.configVoltageCompSaturation(10.0);
         rightDriveTalon.enableVoltageCompensation(true);
-        rightDriveTalon.configOpenloopRamp(1.0);
+        rightDriveTalon.configOpenloopRamp(0.5);
         rightDriveTalon.setSensorPhase(false);
         rightDriveTalon.setInverted(false);
 
@@ -144,6 +145,9 @@ public class DriveTrain extends Subsystem {
     }
 
     public void setArcadeDrive(double joyForward, double joyTurn) {
+        if(Math.abs(joyTurn) > 0.5) {
+            joyTurn = 0.5;
+        }
         leftDriveTalon.set(ControlMode.PercentOutput, +joyForward, DemandType.ArbitraryFeedForward, joyTurn);
 	 	rightDriveTalon.set(ControlMode.PercentOutput, -joyForward, DemandType.ArbitraryFeedForward, joyTurn);
     }

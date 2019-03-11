@@ -168,6 +168,14 @@ public class HabClimb extends Subsystem {
         backClimb.set(speed);
     }
 
+    public void setFrontMotorClimbSpeed(double speed) {
+        frontClimb.set(1.0*speed);
+    }
+
+    public void setBackMotorClimbSpeed(double speed) {
+        backClimb.set(1.0*speed);
+    }
+
 
 }
 

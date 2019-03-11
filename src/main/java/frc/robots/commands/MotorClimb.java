@@ -26,8 +26,10 @@ public class MotorClimb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double speed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_CLIMB_AXIS);
-    Robot.habClimb.setMotorClimbSpeed(speed);
+    double frontSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_FRONT_CLIMB_AXIS);
+    double backSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_BACK_CLIMB_AXIS);
+    Robot.habClimb.setFrontMotorClimbSpeed(frontSpeed);
+    Robot.habClimb.setBackMotorClimbSpeed(backSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()

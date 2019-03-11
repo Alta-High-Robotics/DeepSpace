@@ -11,7 +11,6 @@ public class RobotMap {
         DRIVE_STICK_X_AXIS = 0,
 
         LEFT_TRIGGER_AXIS = 2,
-        
         LEFT_DRIVE_TALON_CAN_ID = 5,
         LEFT_DRIVE_VICTOR_CAN_ID = 3,
 
@@ -24,10 +23,11 @@ public class RobotMap {
         
         LIFT_STICK_Y_AXIS = 5,
         
-        FRONT_MOTOR_CLIMB = 0,
-        BACK_MOTOR_CLIMB = 1,
+        FRONT_MOTOR_CLIMB = 1,
+        BACK_MOTOR_CLIMB = 0,
         
-        MOTOR_CLIMB_AXIS = 1;
+        MOTOR_FRONT_CLIMB_AXIS = 1,
+        MOTOR_BACK_CLIMB_AXIS = 5;
         
 
 
