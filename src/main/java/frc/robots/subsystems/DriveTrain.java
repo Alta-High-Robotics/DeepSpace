@@ -145,11 +145,27 @@ public class DriveTrain extends Subsystem {
     }
 
     public void setArcadeDrive(double joyForward, double joyTurn) {
-        if(Math.abs(joyTurn) > 0.5) {
-            joyTurn = 0.5;
+        double rightForward = 0;
+        double leftForward = 0;
+        if(Math.abs(joyTurn) > 0.4) {
+            joyTurn = 0.4 * joyTurn;
         }
-        leftDriveTalon.set(ControlMode.PercentOutput, +joyForward, DemandType.ArbitraryFeedForward, joyTurn);
-	 	rightDriveTalon.set(ControlMode.PercentOutput, -joyForward, DemandType.ArbitraryFeedForward, joyTurn);
+
+        rightForward = -joyForward;
+        leftForward = +joyForward;
+
+        // if(Math.abs(joyForward) < 0.1 && joyTurn < 0.1) {
+        //     rightForward = -0.0;
+        //     leftForward = +joyForward;
+        // } else if(Math.abs(joyForward) < 0.1 && joyTurn > 0.1) {
+        //     leftForward = 0.0;
+        //     rightForward = -joyForward;
+        // } else {
+        //     rightForward = -joyForward;
+        //     leftForward = +joyForward;
+        // }
+        leftDriveTalon.set(ControlMode.PercentOutput, leftForward, DemandType.ArbitraryFeedForward, joyTurn);
+	 	rightDriveTalon.set(ControlMode.PercentOutput, rightForward, DemandType.ArbitraryFeedForward, joyTurn);
     }
     
 

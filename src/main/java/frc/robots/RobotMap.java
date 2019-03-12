@@ -27,7 +27,9 @@ public class RobotMap {
         BACK_MOTOR_CLIMB = 0,
         
         MOTOR_FRONT_CLIMB_AXIS = 1,
-        MOTOR_BACK_CLIMB_AXIS = 5;
+        MOTOR_BACK_CLIMB_AXIS = 5,
+        
+        PCM_MODULE_NUMER = 0;
         
 
 

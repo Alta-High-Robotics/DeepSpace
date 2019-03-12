@@ -75,7 +75,7 @@ public class Lift extends Subsystem {
         TalonSubsystem.configureMotionMagicValues(liftTalon, liftArmConfig, LiftTalonMotionMagicConstants.getMotionmagiccruisevelocity(), LiftTalonMotionMagicConstants.getMotionmagicacceleration());
         TalonSubsystem.zeroSensor(liftTalon, liftArmConfig);    
         
-        liftActuator = new DoubleSolenoid(0, 4, 5);
+        liftActuator = new DoubleSolenoid(RobotMap.PCM_MODULE_NUMER, 4, 5);
         liftActuator.set(Value.kForward);
         addChild("LiftActuator",liftActuator);
         

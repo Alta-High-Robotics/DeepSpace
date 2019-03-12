@@ -30,6 +30,9 @@ public class MotorClimb extends Command {
     double backSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_BACK_CLIMB_AXIS);
     Robot.habClimb.setFrontMotorClimbSpeed(frontSpeed);
     Robot.habClimb.setBackMotorClimbSpeed(backSpeed);
+
+    double wheelSpeed = Robot.oi.getController().getRawAxis(RobotMap.LEFT_TRIGGER_AXIS);
+    Robot.habClimb.setHabClimbWheelTalonPercentOutput(wheelSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
