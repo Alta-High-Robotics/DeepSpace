@@ -29,7 +29,8 @@ public class RobotMap {
         MOTOR_FRONT_CLIMB_AXIS = 1,
         MOTOR_BACK_CLIMB_AXIS = 5,
         
-        PCM_MODULE_NUMER = 0;
+        PCM_MODULE_NUMER = 0,
+        CLAW_ACTUATOR_CHANNEL_NUMBER = 6;
         
 
 

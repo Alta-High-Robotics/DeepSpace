@@ -145,11 +145,11 @@ public class DriveTrain extends Subsystem {
     }
 
     public void setArcadeDrive(double joyForward, double joyTurn) {
-        double rightForward = 0;
-        double leftForward = 0;
-        if(Math.abs(joyTurn) > 0.4) {
-            joyTurn = 0.4 * joyTurn;
-        }
+        double rightForward;
+        double leftForward;
+        // if(Math.abs(joyTurn) > 0.4) {
+        //     joyTurn = 0.4 * joyTurn;
+        // }
 
         rightForward = -joyForward;
         leftForward = +joyForward;
