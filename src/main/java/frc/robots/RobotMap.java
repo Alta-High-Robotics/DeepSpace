@@ -30,7 +30,14 @@ public class RobotMap {
         MOTOR_BACK_CLIMB_AXIS = 5,
         
         PCM_MODULE_NUMER = 0,
-        CLAW_ACTUATOR_CHANNEL_NUMBER = 6;
+
+        CLAW_ACTUATOR_FORWARD_CHANNEL = 0,
+        CLAW_ACTUATOR_REVERSE_CHANNEL = 1,
+
+
+        CLAW_ACTUATOR_CHANNEL_NUMBER = 6,
+        
+        LIFT_ACTUATOR_CHANEL_NUMBER = 2;
         
 
 

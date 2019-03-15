@@ -40,13 +40,13 @@ public class HabLiftBackUpDown extends TimedCommand {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if(!Robot.habClimb.isBackHabClimbDown()) {
-            Robot.habClimb.setBackSolenoid(Value.kForward);
-            // Robot.habClimb.setBackActuatorsUp();
-        } else {
-            Robot.habClimb.setBackSolenoid(Value.kReverse);
-            // Robot.habClimb.setBackActuatorsDown();
-        }
+        // if(!Robot.habClimb.isBackHabClimbDown()) {
+        //     Robot.habClimb.setBackSolenoid(Value.kForward);
+        //     // Robot.habClimb.setBackActuatorsUp();
+        // } else {
+        //     Robot.habClimb.setBackSolenoid(Value.kReverse);
+        //     // Robot.habClimb.setBackActuatorsDown();
+        // }
     }
 
     // Called repeatedly when this Command is scheduled to run

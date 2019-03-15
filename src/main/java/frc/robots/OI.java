@@ -38,11 +38,15 @@ public class OI {
         Button frontHabLiftUpAndDown = new XboxButton(controller, XboxButton.Button.Y);
         Button backHabLiftUpAndDown = new XboxButton(controller, XboxButton.Button.B);
 
+        // left bumper on first controller
         Button placeDiskButton = new XboxButton(controller, XboxButton.Button.BumperLeft);
 
+        // right bumper on first controller
         Button liftActuatorButton = new XboxButton(controller, XboxButton.Button.BumperRight);
 
         Button liftToLowPosButton = new XboxButton(controller, XboxButton.Button.A);
+
+        Button frontHabIdle = new XboxButton(controllerTwo, XboxButton.Button.Start);
 
         Button liftToMidPosition = new XboxButton(controllerTwo, XboxButton.Button.X);
         Button lifToHighPositon = new XboxButton(controllerTwo, XboxButton.Button.Y);
@@ -61,11 +65,16 @@ public class OI {
         lifToHighPositon.whenPressed(new LiftToHighPos());
         liftToStowedPosition.whenPressed(new LiftToStowedPos());
 
-        placeDiskButton.whenPressed(new PlaceDisk(3.0));
+        // left bumper on first controller
+        placeDiskButton.whenPressed(new PlaceDisk(1.0));
 
-        liftActuatorButton.whenPressed(new LiftActuatorInOut(1.0));
+        // liftActuatorButton.whenPressed(new LiftActuatorInOut(1.0));
+        // right bumper on first controller
+        liftActuatorButton.toggleWhenPressed(new LiftActuatorSingleSolenoid(1.0));
 
         liftToLowPosButton.whenPressed(new LiftToLowPos());
+
+        frontHabIdle.toggleWhenPressed(new FrontHabMotorIdle());
 
         // climbUpWithMotors.toggleWhenPressed(new ClimbUpWithMotors());
         // climbDownWithMotors.toggleWhenPressed(new ClimbDownWithMotors());

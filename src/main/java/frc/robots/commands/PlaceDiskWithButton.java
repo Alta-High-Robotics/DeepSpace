@@ -7,18 +7,17 @@
 
 package frc.robots.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robots.Robot;
 
 /**
  * Add your docs here.
  */
-public class PlaceDiskWithButton extends TimedCommand {
+public class PlaceDiskWithButton  extends Command {
   /**
    * Add your docs here.
    */
-  public PlaceDiskWithButton(double timeout) {
-    super(timeout);
+  public PlaceDiskWithButton() {
     requires(Robot.claw);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -27,7 +26,7 @@ public class PlaceDiskWithButton extends TimedCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.claw.setClawActuatorOut();
+    // Robot.claw.setClawActuatorOut();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,10 +34,14 @@ public class PlaceDiskWithButton extends TimedCommand {
   protected void execute() {
   }
 
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
   // Called once after timeout
   @Override
   protected void end() {
-    Robot.claw.setClawActuatorIn();
+    // Robot.claw.setClawActuatorIn();
   }
 
   // Called when another command which requires one or more of the same

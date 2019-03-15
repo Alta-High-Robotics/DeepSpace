@@ -38,7 +38,9 @@ public class PlaceDisk extends TimedCommand {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.claw.setClawActuatorOut();
+        // Robot.claw.setClawActuatorOut();
+        Robot.claw.doClawActuator();
+
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -52,7 +54,7 @@ public class PlaceDisk extends TimedCommand {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.claw.setClawActuatorIn();
+        // Robot.claw.setClawActuatorIn();
     }
 
     // Called when another command which requires one or more of the same

@@ -51,7 +51,7 @@ public class LiftToLowPos extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        
+        double targetPos = 0;
         // Robot.lift.setLiftPos2();
         System.out.println(LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
         double liftStickAxis = 1.0 * Robot.oi.getController().getRawAxis(RobotMap.LIFT_STICK_Y_AXIS);
@@ -63,7 +63,7 @@ public class LiftToLowPos extends Command {
         Robot.lift.putLiftTalonOutputsSmartDash();
         if(liftStickAxis < -0.05) {
             Robot.lift.resetNominalOutput();
-            double targetPos =  liftStickAxis * LiftTalonMotionMagicConstants.getkSensorUnitsPerRotation() * 3.0;
+            targetPos =  liftStickAxis * LiftTalonMotionMagicConstants.getkSensorUnitsPerRotation() * 3.0;
             System.out.println("Target Pos Value: " + targetPos);
             SmartDashboard.putNumber("Target Pos Value", targetPos);
             Robot.lift.setLiftPosWithJoystick(targetPos);
@@ -71,6 +71,7 @@ public class LiftToLowPos extends Command {
         } 
         else {
             Robot.lift.configLiftNominalPercentOutput();
+            targetPos = 0;
         }
        
         

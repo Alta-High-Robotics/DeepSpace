@@ -19,21 +19,21 @@ public class LiftActuatorInOut extends TimedCommand {
     // eg. requires(chassis);
   }
 
-  // Called just before this Command runs the first time
+  // Called just before this Command runs the first timed
   @Override
   protected void initialize() {
-    if(!Robot.lift.isLiftActuatorForward()) {
-      Robot.lift.setLiftActuator(Value.kForward);
-    } else {
-      Robot.lift.setLiftActuator(Value.kReverse);
-    }
-    System.out.println("Lift actuator working");
+    // if(!Robot.lift.isLiftActuatorForward()) {
+    //   Robot.lift.setLiftActuator(Value.kForward);
+    // } else {
+    //   Robot.lift.setLiftActuator(Value.kReverse);
+    // }
+    // System.out.println("Lift actuator working");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Lift actuator direction: " + Robot.lift.getLiftActuatorDirection()); 
+    // System.out.println("Lift actuator direction: " + Robot.lift.getLiftActuatorDirection()); 
   }
   // Called once after isFinished returns true
   @Override

@@ -9,7 +9,8 @@ public class LiftTalonMotionMagicConstants {
     private static final double forward = 1.0;
     private static final double backward = -1.0;
 
-    private static final double maxSensorVelocity  = 2162;
+    // private static final double maxSensorVelocityFirstRobot  = 2162;
+    private static final double maxSensorVelocity = 1450;
 
     private static final double feedForwardGain = (1.0 * 1023) / maxSensorVelocity;
 
@@ -22,7 +23,10 @@ public class LiftTalonMotionMagicConstants {
 
     private static final int motionMagicAcceleration = 700;
 
-    private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(feedForwardGain, 0.035, 0.0000001, 0.0);
+    // private double firstRobotGains = 0.035;
+    private static double secondRobotPGain = 0.03;
+
+    private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(feedForwardGain, secondRobotPGain, 0.0000001, 0.0);
 
     
 
