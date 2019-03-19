@@ -58,7 +58,11 @@ public class Lift extends Subsystem {
 
         liftTalon = new WPI_TalonSRX(RobotMap.LIFT_ARM_TALON_CAN_ID);
         liftTalon.configFactoryDefault();
-        liftTalon.setSensorPhase(false);
+        // Sensor Phase First Robot
+        // liftTalon.setSensorPhase(true);
+
+        // Sensor Phase Second Robot
+        liftTalon.setSensorPhase(true);
         liftTalon.setInverted(false);
         // liftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 30);
         liftTalon.setNeutralMode(NeutralMode.Brake);
@@ -142,7 +146,7 @@ public class Lift extends Subsystem {
     }
 
     public void setLiftPos3() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, LiftTalonMotionMagicConstants.getEncoderTargetValues()[2]);
+        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[2]);
     }
 
     public void setLiftStowed() {
