@@ -44,7 +44,7 @@ public class OI {
         // right bumper on first controller
         Button liftActuatorButton = new XboxButton(controller, XboxButton.Button.BumperRight);
 
-        Button liftToLowPosButton = new XboxButton(controller, XboxButton.Button.A);
+        Button liftToLowPosButton = new XboxButton(controllerTwo, XboxButton.Button.A);
 
         Button frontHabIdle = new XboxButton(controllerTwo, XboxButton.Button.Start);
 
@@ -61,6 +61,7 @@ public class OI {
         frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
         backHabLiftUpAndDown.whenPressed(new HabLiftBackUpDown(1.0));
 
+        liftToLowPosButton.whenPressed(new LiftToLowPos());
         liftToMidPosition.whenPressed(new LiftToMidPos());
         lifToHighPositon.whenPressed(new LiftToHighPos());
         liftToStowedPosition.whenPressed(new LiftToStowedPos());
