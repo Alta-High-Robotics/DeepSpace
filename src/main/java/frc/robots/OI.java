@@ -52,6 +52,8 @@ public class OI {
         Button lifToHighPositon = new XboxButton(controllerTwo, XboxButton.Button.Y);
         Button liftToStowedPosition = new XboxButton(controllerTwo, XboxButton.Button.B);
 
+        Button seekLeftButton = new XboxButton(controllerTwo, XboxButton.Button.BumperLeft);
+
         // Button climbUpWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperRight);
         // Button climbDownWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperLeft);
         
@@ -76,6 +78,8 @@ public class OI {
         liftToLowPosButton.whenPressed(new LiftToLowPos());
 
         frontHabIdle.toggleWhenPressed(new FrontHabMotorIdle());
+
+        seekLeftButton.toggleWhenPressed(new SeekLeft());
 
         // climbUpWithMotors.toggleWhenPressed(new ClimbUpWithMotors());
         // climbDownWithMotors.toggleWhenPressed(new ClimbDownWithMotors());
