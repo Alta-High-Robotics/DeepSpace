@@ -24,7 +24,7 @@ public class LiftTalonMotionMagicConstants {
     private static final int motionMagicAcceleration = 1700;
 
     // private double firstRobotGains = 0.035;
-    private static double secondRobotPGain = 0.4;
+    private static double secondRobotPGain = 0.5;
 
     private static final TalonPIDConfig liftMotionMagicGains = new TalonPIDConfig(feedForwardGain, secondRobotPGain, 0.0000001, 0);
 
