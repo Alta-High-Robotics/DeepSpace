@@ -172,6 +172,16 @@ public class DriveTrain extends Subsystem {
         leftDriveTalon.set(ControlMode.PercentOutput, leftForward, DemandType.ArbitraryFeedForward, joyTurn);
 	 	rightDriveTalon.set(ControlMode.PercentOutput, rightForward, DemandType.ArbitraryFeedForward, joyTurn);
     }
+
+    public void driveStraight(double joyForward) {
+        double rightForward;
+        double leftForward;
+        rightForward = -joyForward;
+        leftForward = +joyForward;
+
+        leftDriveTalon.set(ControlMode.PercentOutput, leftForward, DemandType.ArbitraryFeedForward, 0);
+	 	rightDriveTalon.set(ControlMode.PercentOutput, rightForward, DemandType.ArbitraryFeedForward, 0);
+    }
     
 
     

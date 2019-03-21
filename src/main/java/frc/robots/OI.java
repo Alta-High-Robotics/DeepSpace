@@ -44,6 +44,8 @@ public class OI {
         // right bumper on first controller
         Button liftActuatorButton = new XboxButton(controller, XboxButton.Button.BumperRight);
 
+        Button driveStraightButton = new XboxButton(controller, XboxButton.Button.A);
+
         Button liftToLowPosButton = new XboxButton(controllerTwo, XboxButton.Button.A);
 
         Button frontHabIdle = new XboxButton(controllerTwo, XboxButton.Button.Start);
@@ -68,6 +70,7 @@ public class OI {
         lifToHighPositon.whenPressed(new LiftToHighPos());
         liftToStowedPosition.whenPressed(new LiftToStowedPos());
 
+        driveStraightButton.whileHeld(new DriveStraight());
         // left bumper on first controller
         placeDiskButton.whenPressed(new PlaceDisk(1.0));
 

@@ -65,8 +65,8 @@ public class HabClimb extends Subsystem {
         // addChild("RearHabClimbers",rearHabClimbers);
         // rearHabClimbers.set(Value.kForward);
 
-        // frontClimb = new VictorSP(RobotMap.FRONT_MOTOR_CLIMB);
-        // backClimb = new VictorSP(RobotMap.BACK_MOTOR_CLIMB);
+        frontClimb = new VictorSP(RobotMap.FRONT_MOTOR_CLIMB);
+        backClimb = new VictorSP(RobotMap.BACK_MOTOR_CLIMB);
         
         
 
