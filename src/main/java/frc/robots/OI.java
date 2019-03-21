@@ -65,9 +65,15 @@ public class OI {
         frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
         backHabLiftUpAndDown.whenPressed(new HabLiftBackUpDown(1.0));
 
-        liftToLowPosButton.whenPressed(new LiftToLowPos());
-        liftToMidPosition.whenPressed(new LiftToMidPos());
-        lifToHighPositon.whenPressed(new LiftToHighPos());
+        // liftToLowPosButton.whenPressed(new LiftToLowPos());
+        liftToLowPosButton.whenPressed(new LiftToLowPosSingleButton());
+        
+        // liftToMidPosition.whenPressed(new LiftToMidPos());
+        liftToMidPosition.whenPressed(new LiftToMidPosSingleButton());
+
+        
+        // lifToHighPositon.whenPressed(new LiftToHighPos());
+        lifToHighPositon.whenPressed(new LiftToHighPosSingleButton());
         liftToStowedPosition.whenPressed(new LiftToStowedPos());
 
         driveStraightButton.whileHeld(new DriveStraight());
