@@ -54,12 +54,13 @@ public class SeekLeft extends Command {
     @Override
     protected boolean isFinished() {
          boolean isAchievedTarget = Robot.cameraSubsystem.getData().area >= 4.0; // -- calibrate before applying!
-        return isAchievedTarget;
+        return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.cameraSubsystem.setDriveCamMode();
     }
 
     // Called when another command which requires one or more of the same

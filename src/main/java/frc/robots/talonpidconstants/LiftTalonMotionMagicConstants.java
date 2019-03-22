@@ -34,7 +34,7 @@ public class LiftTalonMotionMagicConstants {
         return encoderTargetValues;
     }
 
-    /**
+/**
      * @return the motionmagicacceleration
      */
     public static int getMotionmagicacceleration() {

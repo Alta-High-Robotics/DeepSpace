@@ -57,10 +57,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData(habClimb);
         lift = new Lift();
         SmartDashboard.putData(lift);
-        cameraSubsystem = new CameraSubsystem();
-        SmartDashboard.putData(cameraSubsystem);
+        
+        
         driveTrain = new DriveTrain();
         SmartDashboard.putData(driveTrain);
+        cameraSubsystem = new CameraSubsystem();
+        SmartDashboard.putData(cameraSubsystem);
+        
         talonSubsystem = new TalonSubsystem();
         SmartDashboard.putData(talonSubsystem);
         // Robot.cameraSubsystem.setDriveCamMode();
