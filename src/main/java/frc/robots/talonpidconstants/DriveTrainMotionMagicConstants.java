@@ -1,5 +1,7 @@
 package frc.robots.talonpidconstants;
 
+import frc.robots.subsystems.TalonSubsystem.TalonPIDConfig;
+
 public class DriveTrainMotionMagicConstants {
 
     // ALL MEASUREMENTS ARE IN INCHES
@@ -21,9 +23,20 @@ public class DriveTrainMotionMagicConstants {
 
     private static final double maxSensorVelocity  = 0;
 
+    private static final double feedForwardGain = (1.0 * 1023) / maxSensorVelocity;
+
+    public static final int PID_PRIMARY = 0;
+    public static final int PID_AUX = 1;
+
+    public static final int CRUISE_VELOCITY = 0;
+    public static final int ACCELERATION = 0;
+
     private final int kSensorUnitsPerRotation = 4096;
 
     private final double encoderTargetValue = kSensorUnitsPerRotation * rotationsNeeded;
+
+    public static final TalonPIDConfig PRIMARY_GAINS = new TalonPIDConfig(feedForwardGain, 0.0, 0.0, 0.0, 0, 0.0);
+    public static final TalonPIDConfig AUXILLARY_GAINS = new TalonPIDConfig(feedForwardGain, 0.0, 0.0, 0.0, 0, 0.0);
 
     public double getEncoderTargetValue() {
         return encoderTargetValue;

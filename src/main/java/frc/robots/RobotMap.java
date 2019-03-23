@@ -23,6 +23,7 @@ public class RobotMap {
         
         LIFT_STICK_Y_AXIS = 5,
         
+<<<<<<< HEAD
         FRONT_MOTOR_CLIMB = 1,
         BACK_MOTOR_CLIMB = 0,
         
@@ -38,6 +39,9 @@ public class RobotMap {
         CLAW_ACTUATOR_CHANNEL_NUMBER = 6,
         
         LIFT_ACTUATOR_CHANEL_NUMBER = 2;
+=======
+        MOTION_MAGIC_DRIVETRAIN_AXIS = 5;
+>>>>>>> ffc81f63960eb08e75c9be08d791caad436a42cd
         
 
 
