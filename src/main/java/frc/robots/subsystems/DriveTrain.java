@@ -84,7 +84,7 @@ public class DriveTrain extends Subsystem {
         rightDriveTalon.configVoltageCompSaturation(10.0);
         rightDriveTalon.enableVoltageCompensation(true);
         rightDriveTalon.configOpenloopRamp(0.5);
-        rightDriveTalon.setSensorPhase(false);
+        rightDriveTalon.setSensorPhase(true);
         rightDriveTalon.setInverted(false);
 
         rightDriveVictor = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_VICTOR_CAN_ID);

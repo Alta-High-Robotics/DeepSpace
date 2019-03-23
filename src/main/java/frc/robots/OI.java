@@ -46,6 +46,7 @@ public class OI {
 
         Button driveStraightButton = new XboxButton(controller, XboxButton.Button.A);
         Button reduceTurnSensitivityButton = new XboxButton(controller, XboxButton.Button.B);
+        Button servoForwardBackButton = new XboxButton(controller, XboxButton.Button.X);
 
         Button liftToLowPosButton = new XboxButton(controllerTwo, XboxButton.Button.A);
 
@@ -63,6 +64,7 @@ public class OI {
         // Button climbDownWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperLeft);
         
         reduceTurnSensitivityButton.whileHeld(new ReduceTurnSensitivity());
+        servoForwardBackButton.whileActive(new ServoForwardBackQuadrature());
 
         entireHabLiftUpAndDown.whenPressed(new EntireHabLiftUpDown(1.0));
         frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
