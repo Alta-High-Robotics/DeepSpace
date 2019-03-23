@@ -18,8 +18,8 @@ public class LiftToLowPosSingleButton extends CommandGroup {
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
     // these will run in order.
-    addSequential(new LiftToLowPos());
-    addSequential(new LiftActuatorSingleSolenoid(0.3));
+    addParallel(new LiftActuatorSingleSolenoid(0.3));
+    addParallel(new LiftToLowPos());
     addSequential(new LiftToLowPos());
     // To run multiple commands at the same time,
     // use addParallel()

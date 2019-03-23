@@ -45,6 +45,7 @@ public class OI {
         Button liftActuatorButton = new XboxButton(controller, XboxButton.Button.BumperRight);
 
         Button driveStraightButton = new XboxButton(controller, XboxButton.Button.A);
+        Button reduceTurnSensitivityButton = new XboxButton(controller, XboxButton.Button.B);
 
         Button liftToLowPosButton = new XboxButton(controllerTwo, XboxButton.Button.A);
 
@@ -56,24 +57,26 @@ public class OI {
 
         Button seekLeftButton = new XboxButton(controllerTwo, XboxButton.Button.BumperLeft);
 
+        Button seekRightButton = new XboxButton(controllerTwo, XboxButton.Button.BumperRight);
+
         // Button climbUpWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperRight);
         // Button climbDownWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperLeft);
         
-
+        reduceTurnSensitivityButton.whileHeld(new ReduceTurnSensitivity());
 
         entireHabLiftUpAndDown.whenPressed(new EntireHabLiftUpDown(1.0));
         frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
         backHabLiftUpAndDown.whenPressed(new HabLiftBackUpDown(1.0));
 
-        // liftToLowPosButton.whenPressed(new LiftToLowPos());
-        liftToLowPosButton.whenPressed(new LiftToLowPosSingleButton());
+        liftToLowPosButton.whenPressed(new LiftToLowPos());
+        // liftToLowPosButton.whenPressed(new LiftToLowPosSingleButton());
         
-        // liftToMidPosition.whenPressed(new LiftToMidPos());
-        liftToMidPosition.whenPressed(new LiftToMidPosSingleButton());
+        liftToMidPosition.whenPressed(new LiftToMidPos());
+        // liftToMidPosition.whenPressed(new LiftToMidPosSingleButton());
 
         
-        // lifToHighPositon.whenPressed(new LiftToHighPos());
-        lifToHighPositon.whenPressed(new LiftToHighPosSingleButton());
+        lifToHighPositon.whenPressed(new LiftToHighPos());
+        // lifToHighPositon.whenPressed(new LiftToHighPosSingleButton());
         liftToStowedPosition.whenPressed(new LiftToStowedPos());
 
         driveStraightButton.whileHeld(new DriveStraight());
@@ -89,6 +92,7 @@ public class OI {
         frontHabIdle.toggleWhenPressed(new FrontHabMotorIdle());
 
         seekLeftButton.toggleWhenPressed(new SeekLeft());
+        seekRightButton.toggleWhenPressed(new SeekRight());
 
         // climbUpWithMotors.toggleWhenPressed(new ClimbUpWithMotors());
         // climbDownWithMotors.toggleWhenPressed(new ClimbDownWithMotors());

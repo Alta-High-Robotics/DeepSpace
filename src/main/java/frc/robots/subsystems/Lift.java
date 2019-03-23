@@ -143,17 +143,40 @@ public class Lift extends Subsystem {
 
     public void setLiftPos1() {
         TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        setLiftActuatorOut();
     }
 
-    public void setLiftPos2() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
+    
+    public void setLiftPos2(int i) {    
+        System.out.println(i);
+        if(i == 5) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        }        
+        if(i == 50) {
+            setLiftActuatorOut();
+        }
+        if(i == 80) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[1]);
+        }   
+        
     }
 
-    public void setLiftPos3() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[2]);
+    public void setLiftPos3(int i) {
+        System.out.println(i);
+        if(i == 5) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        }  
+        if(i == 50) {
+            setLiftActuatorOut();
+        }
+        if(i == 80) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[2]);
+        }
     }
 
     public void setLiftStowed() {
+        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        setLiftActuatorOut();
         TalonSubsystem.setTalonMotionMagic(liftTalon, LiftTalonMotionMagicConstants.getEncoderTargetValues()[3]);
     }
 
