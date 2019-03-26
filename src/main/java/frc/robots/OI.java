@@ -60,9 +60,11 @@ public class OI {
 
         Button seekRightButton = new XboxButton(controllerTwo, XboxButton.Button.BumperRight);
 
+        Button toggleNominalOutput = new XboxButton(controller, XboxButton.Button.StickRight);
+
         // Button climbUpWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperRight);
         // Button climbDownWithMotors = new XboxButton(controllerTwo, XboxButton.Button.BumperLeft);
-        
+        toggleNominalOutput.whenPressed(new SetLiftNominalOutput());
         reduceTurnSensitivityButton.whileHeld(new ReduceTurnSensitivity());
         servoForwardBackButton.whileActive(new ServoForwardBackQuadrature());
 

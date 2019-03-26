@@ -77,7 +77,7 @@ public class SeekLeft extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-         boolean isAchievedTarget = Robot.cameraSubsystem.getData().area >= 16.0; // -- calibrate before applying!
+         boolean isAchievedTarget = Robot.cameraSubsystem.getData().area >= 9.0; // -- calibrate before applying!
         return isAchievedTarget;
     }
 

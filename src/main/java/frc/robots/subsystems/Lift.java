@@ -141,9 +141,13 @@ public class Lift extends Subsystem {
         TalonSubsystem.putTalonOutputsSmartDash(liftTalon);
     }
 
-    public void setLiftPos1() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
-        setLiftActuatorOut();
+    public void setLiftPos1(int i) {
+        if(i == 2) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        }
+        if(i == 30) {
+            setLiftActuatorOut();
+        }   
     }
 
     
@@ -174,10 +178,16 @@ public class Lift extends Subsystem {
         }
     }
 
-    public void setLiftStowed() {
-        TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
-        setLiftActuatorOut();
-        TalonSubsystem.setTalonMotionMagic(liftTalon, LiftTalonMotionMagicConstants.getEncoderTargetValues()[3]);
+    public void setLiftStowed(int i) {
+        if(i == 5) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[0]);
+        }
+        if(i == 50) {
+            setLiftActuatorIn();
+        }
+        if(i == 100) {
+            TalonSubsystem.setTalonMotionMagic(liftTalon, -LiftTalonMotionMagicConstants.getEncoderTargetValues()[3]);
+        }   
     }
 
     // public Value getLiftActuatorDirection() {

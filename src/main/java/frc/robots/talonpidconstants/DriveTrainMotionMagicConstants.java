@@ -21,7 +21,7 @@ public class DriveTrainMotionMagicConstants {
     private static final double forward = 1.0;
     private static final double backward = -1.0;
 
-    private static final double maxSensorVelocity  = 0;
+    private static final double maxSensorVelocity = 1903;
 
     private static final double feedForwardGain = (1.0 * 1023) / maxSensorVelocity;
 
@@ -35,8 +35,8 @@ public class DriveTrainMotionMagicConstants {
 
     private final double encoderTargetValue = kSensorUnitsPerRotation * rotationsNeeded;
 
-    public static final TalonPIDConfig PRIMARY_GAINS = new TalonPIDConfig(feedForwardGain, 0.0, 0.0, 0.0, 0, 0.0);
-    public static final TalonPIDConfig AUXILLARY_GAINS = new TalonPIDConfig(feedForwardGain, 0.0, 0.0, 0.0, 0, 0.0);
+    public static final TalonPIDConfig PRIMARY_GAINS = new TalonPIDConfig(feedForwardGain, 0.01, 0.0, 0.0, 0, 0.0);
+    public static final TalonPIDConfig AUXILLARY_GAINS = new TalonPIDConfig(feedForwardGain, 0.02, 0.0, 0.0, 0, 0.0);
 
     public double getEncoderTargetValue() {
         return encoderTargetValue;

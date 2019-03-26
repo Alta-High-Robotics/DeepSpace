@@ -45,7 +45,7 @@ public class Claw extends Subsystem {
         clawActuator = new DoubleSolenoid(RobotMap.PCM_MODULE_NUMER, RobotMap.CLAW_ACTUATOR_FORWARD_CHANNEL, RobotMap.CLAW_ACTUATOR_REVERSE_CHANNEL);
         addChild("ClawActuator",clawActuator);
 
-        clawActuator.set(Value.kForward);
+        clawActuator.set(Value.kReverse);
         
         
     }
