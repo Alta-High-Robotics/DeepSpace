@@ -13,7 +13,6 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robots.commands.SetUSBCamera;
 
 /**
  * Add your docs here.
@@ -28,21 +27,11 @@ public class USBCamera extends Subsystem {
   public USBCamera() {
     camera1 = CameraServer.getInstance().startAutomaticCapture(0);
     cam2 = CameraServer.getInstance().startAutomaticCapture(1);
-    // CameraServer.getInstance().startAutomaticCapture();
-    // CameraServer.getInstance().getVideo(camera1);
-    // CameraServer.getInstance().getVideo(cam2);
-    // server = CameraServer.getInstance().getServer();
-
-
-
     
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-    // setDefaultCommand(new SetUSBCamera());
   }
 
   public void setCamera1() {
