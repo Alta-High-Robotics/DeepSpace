@@ -45,8 +45,8 @@ public class HabClimb extends Subsystem {
     private DoubleSolenoid rearHabClimbers;
     private WPI_VictorSPX habClimberWheelOnLift;
 
-    private VictorSP frontClimb;
-    private VictorSP backClimb;
+    private WPI_VictorSPX frontClimb;
+    private WPI_VictorSPX backClimb;
 
     
 
@@ -58,15 +58,15 @@ public class HabClimb extends Subsystem {
         // addChild("FrontHabClimbers",frontHabClimbers);
         // frontHabClimbers.set(Value.kReverse);
 
-        habClimberWheelOnLift = new WPI_VictorSPX(RobotMap.HAB_CLIMB_WHEEL_CAN_ID);
+        // habClimberWheelOnLift = new WPI_VictorSPX(RobotMap.HAB_CLIMB_WHEEL_CAN_ID);
         
         
         // rearHabClimbers = new DoubleSolenoid(0, 4, 5);
         // addChild("RearHabClimbers",rearHabClimbers);
         // rearHabClimbers.set(Value.kForward);
 
-        frontClimb = new VictorSP(RobotMap.FRONT_MOTOR_CLIMB);
-        backClimb = new VictorSP(RobotMap.BACK_MOTOR_CLIMB);
+        frontClimb = new WPI_VictorSPX(RobotMap.FRONT_MOTOR_CLIMB);
+        backClimb = new WPI_VictorSPX(RobotMap.BACK_MOTOR_CLIMB);
         
         
 
@@ -136,7 +136,7 @@ public class HabClimb extends Subsystem {
     // }
 
     public void setHabClimbWheelTalonPercentOutput(double output) {
-        habClimberWheelOnLift.set(ControlMode.PercentOutput, output);
+        habClimberWheelOnLift.set(ControlMode.PercentOutput, -output);
     }
 
     // public Value getFrontClimbersDirection() {

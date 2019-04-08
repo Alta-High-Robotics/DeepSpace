@@ -17,7 +17,7 @@ public class LiftTalonMotionMagicConstants {
     private static final int kSensorUnitsPerRotation = 4096;
 
     // first robot second pos = 6905
-    private static final double[] encoderTargetValues = {3760, 8300, 12544, 0};
+    private static final double[] encoderTargetValues = {4060, 8400, 12544, 0, 5200};
 
     private static final int motionMagicCruiseVelocity = 1500;
     // first robot acceleration and cruise velocity = 700

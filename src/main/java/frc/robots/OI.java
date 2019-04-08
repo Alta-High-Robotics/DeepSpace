@@ -35,9 +35,9 @@ public class OI {
 
     public OI() {
         Button entireHabLiftUpAndDown = new XboxButton(controller, XboxButton.Button.X);
-        Button frontHabLiftUpAndDown = new XboxButton(controller, XboxButton.Button.Y);
+        // Button frontHabLiftUpAndDown = new XboxButton(controller, XboxButton.Button.Y);
         Button backHabLiftUpAndDown = new XboxButton(controller, XboxButton.Button.B);
-
+        Button hatchPanelPickupButton = new XboxButton(controller, XboxButton.Button.Y);
         // left bumper on first controller
         Button placeDiskButton = new XboxButton(controller, XboxButton.Button.BumperLeft);
 
@@ -69,8 +69,10 @@ public class OI {
         servoForwardBackButton.whileActive(new ServoForwardBackQuadrature());
 
         entireHabLiftUpAndDown.whenPressed(new EntireHabLiftUpDown(1.0));
-        frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
+        // frontHabLiftUpAndDown.whenPressed(new HabLiftFrontUpDown(1.0));
         backHabLiftUpAndDown.whenPressed(new HabLiftBackUpDown(1.0));
+
+        hatchPanelPickupButton.whenPressed(new LiftHatchPanelPickupPos());
 
         liftToLowPosButton.whenPressed(new LiftToLowPos());
         // liftToLowPosButton.whenPressed(new LiftToLowPosSingleButton());

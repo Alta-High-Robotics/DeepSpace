@@ -9,13 +9,15 @@ package frc.robots.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robots.Robot;
-import frc.robots.RobotMap;
+import frc.robots.talonpidconstants.LiftTalonMotionMagicConstants;
 
-public class MotorClimb extends Command {
-  public MotorClimb() {
+public class LiftHatchPanelPickupPos extends Command {
+
+
+  public LiftHatchPanelPickupPos() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.habClimb);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
@@ -26,19 +28,14 @@ public class MotorClimb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double frontSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_FRONT_CLIMB_AXIS);
-    double backSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_BACK_CLIMB_AXIS);
-    Robot.habClimb.setFrontMotorClimbSpeed(frontSpeed);
-    Robot.habClimb.setBackMotorClimbSpeed(backSpeed);
-
-    // double wheelSpeed = Robot.oi.getController().getRawAxis(RobotMap.LEFT_TRIGGER_AXIS);
-    // Robot.habClimb.setHabClimbWheelTalonPercentOutput(wheelSpeed);
+    Robot.lift.setHatchPanelPickupPos();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return (Robot.lift.getLiftEncoderPosition() >= LiftTalonMotionMagicConstants.getEncoderTargetValues()[4] - 20) &&
+    Robot.lift.getLiftEncoderPosition() <= LiftTalonMotionMagicConstants.getEncoderTargetValues()[4] + 20;
   }
 
   // Called once after isFinished returns true

@@ -53,7 +53,7 @@ public class DriveCommand extends Command {
         // }
         // Robot.driveTrain.curveDrive(0.5*speed, rotation, quickTurn);
         Robot.driveTrain.setArcadeDrive(speed, 0.8* rotation);
-        System.out.println("Driving");
+        // System.out.println("Driving");
     }
 
     // Make this return true when this Command no longer needs to run execute()

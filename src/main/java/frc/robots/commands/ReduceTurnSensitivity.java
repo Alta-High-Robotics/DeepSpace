@@ -35,7 +35,7 @@ public class ReduceTurnSensitivity extends Command {
         //     quickTurn = false;
         // }
         // Robot.driveTrain.curveDrive(0.5*speed, rotation, quickTurn);
-        Robot.driveTrain.setArcadeDrive(speed, 0.35 * rotation);
+        Robot.driveTrain.setArcadeDrive(speed, 0.25 * rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()

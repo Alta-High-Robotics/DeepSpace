@@ -7,15 +7,15 @@
 
 package frc.robots.commands;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robots.Robot;
-import frc.robots.RobotMap;
 
-public class MotorClimb extends Command {
-  public MotorClimb() {
+public class SetUSBCamera extends Command {
+  public SetUSBCamera() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.habClimb);
+    requires(Robot.usbCameraSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -26,13 +26,7 @@ public class MotorClimb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double frontSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_FRONT_CLIMB_AXIS);
-    double backSpeed = Robot.oi.getControllerTwo().getRawAxis(RobotMap.MOTOR_BACK_CLIMB_AXIS);
-    Robot.habClimb.setFrontMotorClimbSpeed(frontSpeed);
-    Robot.habClimb.setBackMotorClimbSpeed(backSpeed);
-
-    // double wheelSpeed = Robot.oi.getController().getRawAxis(RobotMap.LEFT_TRIGGER_AXIS);
-    // Robot.habClimb.setHabClimbWheelTalonPercentOutput(wheelSpeed);
+    Robot.usbCameraSubsystem.setCamera1();
   }
 
   // Make this return true when this Command no longer needs to run execute()
