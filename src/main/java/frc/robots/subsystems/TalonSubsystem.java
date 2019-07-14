@@ -44,6 +44,10 @@ public class TalonSubsystem extends Subsystem {
     private int integralZone;
     private double peakOutputClosedLoop;
 
+    /**
+     * Constructs a new PID Configuration for a Talon SRX motor controller
+     */
+
     public TalonPIDConfig(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain) {
       this.feedForwardGain = feedForwardGain;
       this.proportionalGain = proportionalGain;
@@ -51,6 +55,7 @@ public class TalonSubsystem extends Subsystem {
       this.derivativeGain = derivativeGain;
     }
 
+    
     public TalonPIDConfig(double feedForwardGain, double proportionalGain, double integralGain, double derivativeGain, int integralZone, double peakOutputClosedLoop)  {
       this(feedForwardGain, proportionalGain, integralGain, derivativeGain);
       this.integralZone = integralZone;
