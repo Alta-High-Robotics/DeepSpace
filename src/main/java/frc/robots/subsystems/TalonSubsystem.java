@@ -22,10 +22,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Add your docs here.
+ * This subsystem is a new subsystem for configuring Talon SRX smart motor controllers,
+ * using the CTRE Phoenix API. Be sure to install the CTRE Phoenix API on the RoboRIO,
+ * as well as to update all the firmware on all of your team's motor controllers. Also
+ * be sure to troubleshoot you CAN IDs and make sure your CAN bus is set up correctly
+ * See <a href=https://phoenix-documentation.readthedocs.io/en/latest/index.html>https://phoenix-documentation.readthedocs.io/en/latest/index.html</a>
+ * 
+ *
  */
 public class TalonSubsystem extends Subsystem {
-
+  /**
+   * Static class used to configure the PID values of a Talon SRX motor controller.
+   * See <a href=https://phoenix-documentation.readthedocs.io/en/latest/ch16_ClosedLoop.html>https://phoenix-documentation.readthedocs.io/en/latest/ch16_ClosedLoop.html</a>
+   * for more information.
+   */
   public static class TalonPIDConfig {
     private double feedForwardGain = 0;
     private double proportionalGain = 0;
